@@ -36,8 +36,6 @@ extension CoordinatorProtocol {
 }
 
 protocol CoordinatorFinishDelegate: AnyObject {
-    func coordinatorDidFinish(childCoordinatro: CoordinatorProtocol)
+    func coordinatorDidFinish(childCoordinator: CoordinatorProtocol)
 }
-
-
 

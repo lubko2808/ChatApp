@@ -9,6 +9,19 @@
 /* Begin PBXBuildFile section */
 		3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */; };
 		3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */; };
+		3E5DD8162BE65BD900688F90 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8152BE65BD900688F90 /* AppCoordinator.swift */; };
+		3E5DD8182BE65C0100688F90 /* Onboarding Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8172BE65C0100688F90 /* Onboarding Coordinator.swift */; };
+		3E5DD81A2BE65C0E00688F90 /* RegistrationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8192BE65C0E00688F90 /* RegistrationCoordinator.swift */; };
+		3E5DD81C2BE65C2500688F90 /* ContactsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD81B2BE65C2500688F90 /* ContactsCoordinator.swift */; };
+		3E5DD81E2BE65C2C00688F90 /* ChatsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD81D2BE65C2C00688F90 /* ChatsCoordinator.swift */; };
+		3E5DD8202BE65C4300688F90 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD81F2BE65C4300688F90 /* SettingsCoordinator.swift */; };
+		3E5DD8252BE65C8300688F90 /* SceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8242BE65C8300688F90 /* SceneFactory.swift */; };
+		3E5DD8272BE65CC900688F90 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8262BE65CC900688F90 /* UserStorage.swift */; };
+		3E5DD82A2BE65E0E00688F90 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8292BE65E0E00688F90 /* OnboardingViewController.swift */; };
+		3E5DD82D2BE6B50F00688F90 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD82C2BE6B50F00688F90 /* TabBarController.swift */; };
+		3E5DD8382BE6B67800688F90 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8372BE6B67800688F90 /* ContactsViewController.swift */; };
+		3E5DD83A2BE6B6C700688F90 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8392BE6B6C700688F90 /* SettingsViewController.swift */; };
+		3E5DD83C2BE6B6DB00688F90 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD83B2BE6B6DB00688F90 /* ChatsViewController.swift */; };
 		3E7079A52BE55EB300E17DBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7079A42BE55EB300E17DBC /* AppDelegate.swift */; };
 		3E7079A72BE55EB300E17DBC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7079A62BE55EB300E17DBC /* SceneDelegate.swift */; };
 		3E7079A92BE55EB300E17DBC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7079A82BE55EB300E17DBC /* ViewController.swift */; };
@@ -55,6 +68,19 @@
 /* Begin PBXFileReference section */
 		3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		3E5DD8152BE65BD900688F90 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		3E5DD8172BE65C0100688F90 /* Onboarding Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Coordinator.swift"; sourceTree = "<group>"; };
+		3E5DD8192BE65C0E00688F90 /* RegistrationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationCoordinator.swift; sourceTree = "<group>"; };
+		3E5DD81B2BE65C2500688F90 /* ContactsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCoordinator.swift; sourceTree = "<group>"; };
+		3E5DD81D2BE65C2C00688F90 /* ChatsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsCoordinator.swift; sourceTree = "<group>"; };
+		3E5DD81F2BE65C4300688F90 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		3E5DD8242BE65C8300688F90 /* SceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneFactory.swift; sourceTree = "<group>"; };
+		3E5DD8262BE65CC900688F90 /* UserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorage.swift; sourceTree = "<group>"; };
+		3E5DD8292BE65E0E00688F90 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		3E5DD82C2BE6B50F00688F90 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3E5DD8372BE6B67800688F90 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		3E5DD8392BE6B6C700688F90 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3E5DD83B2BE6B6DB00688F90 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		3E7079A12BE55EB300E17DBC /* TelegrameClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelegrameClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E7079A42BE55EB300E17DBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E7079A62BE55EB300E17DBC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +140,7 @@
 		3E2E31652BE56A5900D740F0 /* ServicesLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3E5DD8262BE65CC900688F90 /* UserStorage.swift */,
 			);
 			path = ServicesLayer;
 			sourceTree = "<group>";
@@ -121,6 +148,8 @@
 		3E2E31662BE56A6800D740F0 /* UILayer */ = {
 			isa = PBXGroup;
 			children = (
+				3E5DD8222BE65C6700688F90 /* Factory */,
+				3E5DD8212BE65C5900688F90 /* Scenes */,
 			);
 			path = UILayer;
 			sourceTree = "<group>";
@@ -128,6 +157,7 @@
 		3E2E31672BE56A6E00D740F0 /* NavigationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3E5DD82B2BE6B4F500688F90 /* Controllers */,
 				3E2E31682BE56A7700D740F0 /* Coordinators */,
 			);
 			path = NavigationLayer;
@@ -138,8 +168,113 @@
 			children = (
 				3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */,
 				3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */,
+				3E5DD8152BE65BD900688F90 /* AppCoordinator.swift */,
+				3E5DD8172BE65C0100688F90 /* Onboarding Coordinator.swift */,
+				3E5DD8192BE65C0E00688F90 /* RegistrationCoordinator.swift */,
+				3E5DD81B2BE65C2500688F90 /* ContactsCoordinator.swift */,
+				3E5DD81D2BE65C2C00688F90 /* ChatsCoordinator.swift */,
+				3E5DD81F2BE65C4300688F90 /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		3E5DD8212BE65C5900688F90 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8302BE6B57600688F90 /* Main */,
+				3E5DD82E2BE6B56600688F90 /* Registration */,
+				3E5DD8282BE65DE900688F90 /* Onboarding */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		3E5DD8222BE65C6700688F90 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8232BE65C7600688F90 /* SceneFactory */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		3E5DD8232BE65C7600688F90 /* SceneFactory */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8242BE65C8300688F90 /* SceneFactory.swift */,
+			);
+			path = SceneFactory;
+			sourceTree = "<group>";
+		};
+		3E5DD8282BE65DE900688F90 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8292BE65E0E00688F90 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		3E5DD82B2BE6B4F500688F90 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD82C2BE6B50F00688F90 /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3E5DD82E2BE6B56600688F90 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8332BE6B5A600688F90 /* Presenters */,
+				3E5DD8322BE6B5A100688F90 /* Controllers */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		3E5DD8302BE6B57600688F90 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8362BE6B5E700688F90 /* Contacts */,
+				3E5DD8352BE6B5E100688F90 /* Settings */,
+				3E5DD8342BE6B5B100688F90 /* Chats */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3E5DD8322BE6B5A100688F90 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3E5DD8332BE6B5A600688F90 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		3E5DD8342BE6B5B100688F90 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD83B2BE6B6DB00688F90 /* ChatsViewController.swift */,
+			);
+			path = Chats;
+			sourceTree = "<group>";
+		};
+		3E5DD8352BE6B5E100688F90 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8392BE6B6C700688F90 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3E5DD8362BE6B5E700688F90 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8372BE6B67800688F90 /* ContactsViewController.swift */,
+			);
+			path = Contacts;
 			sourceTree = "<group>";
 		};
 		3E7079982BE55EB300E17DBC = {
@@ -331,12 +466,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E5DD81E2BE65C2C00688F90 /* ChatsCoordinator.swift in Sources */,
+				3E5DD82D2BE6B50F00688F90 /* TabBarController.swift in Sources */,
+				3E5DD8202BE65C4300688F90 /* SettingsCoordinator.swift in Sources */,
 				3E7079A92BE55EB300E17DBC /* ViewController.swift in Sources */,
+				3E5DD8382BE6B67800688F90 /* ContactsViewController.swift in Sources */,
 				3E7079A52BE55EB300E17DBC /* AppDelegate.swift in Sources */,
+				3E5DD8272BE65CC900688F90 /* UserStorage.swift in Sources */,
+				3E5DD81A2BE65C0E00688F90 /* RegistrationCoordinator.swift in Sources */,
 				3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */,
+				3E5DD82A2BE65E0E00688F90 /* OnboardingViewController.swift in Sources */,
+				3E5DD8252BE65C8300688F90 /* SceneFactory.swift in Sources */,
 				3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */,
+				3E5DD81C2BE65C2500688F90 /* ContactsCoordinator.swift in Sources */,
 				3E7079D72BE5629A00E17DBC /* UIFont+Extension.swift in Sources */,
 				3E7079A72BE55EB300E17DBC /* SceneDelegate.swift in Sources */,
+				3E5DD8182BE65C0100688F90 /* Onboarding Coordinator.swift in Sources */,
+				3E5DD8162BE65BD900688F90 /* AppCoordinator.swift in Sources */,
+				3E5DD83C2BE6B6DB00688F90 /* ChatsViewController.swift in Sources */,
+				3E5DD83A2BE6B6C700688F90 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

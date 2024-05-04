@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */; };
+		3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */; };
 		3E7079A52BE55EB300E17DBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7079A42BE55EB300E17DBC /* AppDelegate.swift */; };
 		3E7079A72BE55EB300E17DBC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7079A62BE55EB300E17DBC /* SceneDelegate.swift */; };
 		3E7079A92BE55EB300E17DBC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7079A82BE55EB300E17DBC /* ViewController.swift */; };
@@ -51,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		3E7079A12BE55EB300E17DBC /* TelegrameClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelegrameClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E7079A42BE55EB300E17DBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E7079A62BE55EB300E17DBC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +111,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E2E31652BE56A5900D740F0 /* ServicesLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServicesLayer;
+			sourceTree = "<group>";
+		};
+		3E2E31662BE56A6800D740F0 /* UILayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UILayer;
+			sourceTree = "<group>";
+		};
+		3E2E31672BE56A6E00D740F0 /* NavigationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				3E2E31682BE56A7700D740F0 /* Coordinators */,
+			);
+			path = NavigationLayer;
+			sourceTree = "<group>";
+		};
+		3E2E31682BE56A7700D740F0 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */,
+				3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		3E7079982BE55EB300E17DBC = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +161,9 @@
 		3E7079A32BE55EB300E17DBC /* TelegrameClone */ = {
 			isa = PBXGroup;
 			children = (
+				3E2E31672BE56A6E00D740F0 /* NavigationLayer */,
+				3E2E31662BE56A6800D740F0 /* UILayer */,
+				3E2E31652BE56A5900D740F0 /* ServicesLayer */,
 				3E7079A42BE55EB300E17DBC /* AppDelegate.swift */,
 				3E7079A62BE55EB300E17DBC /* SceneDelegate.swift */,
 				3E7079A82BE55EB300E17DBC /* ViewController.swift */,
@@ -295,6 +333,8 @@
 			files = (
 				3E7079A92BE55EB300E17DBC /* ViewController.swift in Sources */,
 				3E7079A52BE55EB300E17DBC /* AppDelegate.swift in Sources */,
+				3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */,
+				3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */,
 				3E7079D72BE5629A00E17DBC /* UIFont+Extension.swift in Sources */,
 				3E7079A72BE55EB300E17DBC /* SceneDelegate.swift in Sources */,
 			);

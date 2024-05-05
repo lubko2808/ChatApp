@@ -63,6 +63,10 @@
 		3E707A012BE564C500E17DBC /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E707A002BE564C500E17DBC /* FirebaseRemoteConfigSwift */; };
 		3E707A032BE564C500E17DBC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3E707A022BE564C500E17DBC /* FirebaseStorage */; };
 		3E707A052BE564C500E17DBC /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3E707A042BE564C500E17DBC /* FirebaseStorageCombine-Community */; };
+		3E81038D2BE77866004C97A3 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81038C2BE77866004C97A3 /* CustomTextField.swift */; };
+		3E81038F2BE77ABC004C97A3 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81038E2BE77ABC004C97A3 /* CustomButton.swift */; };
+		3E8103912BE77BFC004C97A3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103902BE77BFC004C97A3 /* LoginViewController.swift */; };
+		3E8103942BE79CBF004C97A3 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103932BE79CBF004C97A3 /* AppColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +106,10 @@
 		3E7079C72BE5616100E17DBC /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		3E7079C82BE5616100E17DBC /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		3E7079D62BE5629A00E17DBC /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		3E81038C2BE77866004C97A3 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		3E81038E2BE77ABC004C97A3 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		3E8103902BE77BFC004C97A3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3E8103932BE79CBF004C97A3 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +231,7 @@
 		3E5DD82E2BE6B56600688F90 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				3E81038B2BE77853004C97A3 /* Views */,
 				3E5DD8332BE6B5A600688F90 /* Presenters */,
 				3E5DD8322BE6B5A100688F90 /* Controllers */,
 			);
@@ -242,6 +251,7 @@
 		3E5DD8322BE6B5A100688F90 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3E8103902BE77BFC004C97A3 /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -313,6 +323,7 @@
 		3E7079B82BE560BD00E17DBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E8103922BE79CB2004C97A3 /* Colors */,
 				3E7079B92BE560C400E17DBC /* Extensions */,
 				3E7079BA2BE560CC00E17DBC /* Fonts */,
 			);
@@ -353,6 +364,23 @@
 				3E7079C82BE5616100E17DBC /* Roboto-Black.ttf */,
 			);
 			path = Roboto;
+			sourceTree = "<group>";
+		};
+		3E81038B2BE77853004C97A3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E81038C2BE77866004C97A3 /* CustomTextField.swift */,
+				3E81038E2BE77ABC004C97A3 /* CustomButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3E8103922BE79CB2004C97A3 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				3E8103932BE79CBF004C97A3 /* AppColors.swift */,
+			);
+			path = Colors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,12 +498,16 @@
 				3E5DD82D2BE6B50F00688F90 /* TabBarController.swift in Sources */,
 				3E5DD8202BE65C4300688F90 /* SettingsCoordinator.swift in Sources */,
 				3E7079A92BE55EB300E17DBC /* ViewController.swift in Sources */,
+				3E81038D2BE77866004C97A3 /* CustomTextField.swift in Sources */,
+				3E8103942BE79CBF004C97A3 /* AppColors.swift in Sources */,
 				3E5DD8382BE6B67800688F90 /* ContactsViewController.swift in Sources */,
 				3E7079A52BE55EB300E17DBC /* AppDelegate.swift in Sources */,
 				3E5DD8272BE65CC900688F90 /* UserStorage.swift in Sources */,
 				3E5DD81A2BE65C0E00688F90 /* RegistrationCoordinator.swift in Sources */,
 				3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */,
+				3E8103912BE77BFC004C97A3 /* LoginViewController.swift in Sources */,
 				3E5DD82A2BE65E0E00688F90 /* OnboardingViewController.swift in Sources */,
+				3E81038F2BE77ABC004C97A3 /* CustomButton.swift in Sources */,
 				3E5DD8252BE65C8300688F90 /* SceneFactory.swift in Sources */,
 				3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */,
 				3E5DD81C2BE65C2500688F90 /* ContactsCoordinator.swift in Sources */,

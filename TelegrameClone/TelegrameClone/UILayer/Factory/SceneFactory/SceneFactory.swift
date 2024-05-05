@@ -52,7 +52,11 @@ class SceneFactory {
         return controller
     }
     
-    
+    static func makeSignInScene(coordinator: RegistrationCoordinator) -> LoginViewController {
+        let controller = LoginViewController()
+        return controller
+        
+    }
     
     
 }

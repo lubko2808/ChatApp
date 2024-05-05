@@ -20,7 +20,7 @@ final class AppCoordinator: Coordinator {
     }
     
     override func start() {
-        showMainFlow()
+        showRegisterFlow()
     }
     
     override func finish() {
@@ -37,14 +37,19 @@ private extension AppCoordinator {
         addChildCoordinator(onboardingCoordinator)
         onboardingCoordinator.start()
     }
+    
     func showMainFlow() {
-        guard let navigationController = navigationController else { return }
+//        guard let navigationController = navigationController else { return }
         let tabBarController = factory.makeMainScene(coordinator: self)
-//        self.tabBarController = tabBarController
         self.window?.rootViewController = tabBarController
-//        navigationController.pushViewController(tabBarController, animated: true)
     }
 
+    func showRegisterFlow() {
+        guard let navigationController = navigationController else { return }
+        let registrationCoordinator = RegistrationCoordinator(type: .registration, navigationController: navigationController)
+        addChildCoordinator(registrationCoordinator)
+        registrationCoordinator.start()
+    }
     
     
 }

@@ -12,7 +12,7 @@ final class RegistrationCoordinator: Coordinator {
     private let factory = SceneFactory.self
     
     override func start() {
-        
+        showSignInScene()
     }
     
     override func finish() {
@@ -22,3 +22,10 @@ final class RegistrationCoordinator: Coordinator {
     
 }
 
+// MARK: - Navigation
+private extension RegistrationCoordinator {
+    func showSignInScene() {
+        let viewController = factory.makeSignInScene(coordinator: self)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+}

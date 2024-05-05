@@ -39,6 +39,7 @@ class CustomTextField: UITextField {
         
         self.autocorrectionType = .no
         self.autocapitalizationType = .none
+        self.textContentType = .oneTimeCode
         
         switch type {
         case .username:

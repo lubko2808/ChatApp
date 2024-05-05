@@ -131,7 +131,9 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func didTapRegister() {
-        
+        let vc = RegisterViewController()
+        vc.title = "Create Account"
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func alertUserLoginError() {

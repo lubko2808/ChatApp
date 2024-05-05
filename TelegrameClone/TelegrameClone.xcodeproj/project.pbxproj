@@ -67,6 +67,7 @@
 		3E81038F2BE77ABC004C97A3 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81038E2BE77ABC004C97A3 /* CustomButton.swift */; };
 		3E8103912BE77BFC004C97A3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103902BE77BFC004C97A3 /* LoginViewController.swift */; };
 		3E8103942BE79CBF004C97A3 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103932BE79CBF004C97A3 /* AppColors.swift */; };
+		3E8103962BE7F700004C97A3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103952BE7F700004C97A3 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		3E81038E2BE77ABC004C97A3 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3E8103902BE77BFC004C97A3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3E8103932BE79CBF004C97A3 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		3E8103952BE7F700004C97A3 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				3E8103902BE77BFC004C97A3 /* LoginViewController.swift */,
+				3E8103952BE7F700004C97A3 /* RegisterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				3E5DD81E2BE65C2C00688F90 /* ChatsCoordinator.swift in Sources */,
 				3E5DD82D2BE6B50F00688F90 /* TabBarController.swift in Sources */,
 				3E5DD8202BE65C4300688F90 /* SettingsCoordinator.swift in Sources */,
+				3E8103962BE7F700004C97A3 /* RegisterViewController.swift in Sources */,
 				3E7079A92BE55EB300E17DBC /* ViewController.swift in Sources */,
 				3E81038D2BE77866004C97A3 /* CustomTextField.swift in Sources */,
 				3E8103942BE79CBF004C97A3 /* AppColors.swift in Sources */,

@@ -20,7 +20,14 @@ final class AppCoordinator: Coordinator {
     }
     
     override func start() {
-        showRegisterFlow()
+        let authUser = AuthenticationManager.shared.getAuthenticatedUser()
+        if authUser == nil {
+            showRegisterFlow()
+        } else {
+            showMainFlow()
+        }
+        
+ 
     }
     
     override func finish() {
@@ -33,24 +40,23 @@ final class AppCoordinator: Coordinator {
 private extension AppCoordinator {
     func showOnboardingFlow() {
         guard let navigationController = navigationController else { return }
-        let onboardingCoordinator = OnboardingCoordinator(type: .onboarding, navigationController: navigationController)
+        let onboardingCoordinator = OnboardingCoordinator(type: .onboarding, navigationController: navigationController, finishDelegate: self)
         addChildCoordinator(onboardingCoordinator)
         onboardingCoordinator.start()
     }
     
     func showMainFlow() {
-//        guard let navigationController = navigationController else { return }
+        guard let navigationController = navigationController else { return }
         let tabBarController = factory.makeMainScene(coordinator: self)
-        self.window?.rootViewController = tabBarController
+        navigationController.pushViewController(tabBarController, animated: true)
     }
 
     func showRegisterFlow() {
         guard let navigationController = navigationController else { return }
-        let registrationCoordinator = RegistrationCoordinator(type: .registration, navigationController: navigationController)
+        let registrationCoordinator = AuthenticationCoordinator(type: .registration, navigationController: navigationController, finishDelegate: self)
         addChildCoordinator(registrationCoordinator)
         registrationCoordinator.start()
     }
-    
     
 }
 
@@ -59,21 +65,17 @@ extension AppCoordinator: CoordinatorFinishDelegate {
     
     func coordinatorDidFinish(childCoordinator: CoordinatorProtocol) {
         removeChildCoordinator(childCoordinator)
-        
-//        switch childCoordinator.type {
-//        case .onboarding:
-//            
-//        case .registration:
-//            
-//        case .contacts:
-//            
-//        case .chats:
-//            
-//        case .settings:
-//            break
-//        default:
-//            navigationController?.popToRootViewController(animated: false)
-//        }
+
+        switch childCoordinator.type {
+        case .registration:
+            showMainFlow()
+            navigationController?.viewControllers = [navigationController?.viewControllers.last ?? UIViewController()]
+        case .settings:
+            showRegisterFlow()
+            navigationController?.viewControllers = [navigationController?.viewControllers.last ?? UIViewController()]
+        default:
+            navigationController?.popToRootViewController(animated: false)
+        }
     }
     
 }

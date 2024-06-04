@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import FacebookLogin
 
 class SignInViewController: UIViewController {
         
@@ -28,22 +29,9 @@ class SignInViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
-    private let emailTextField: CustomTextField = {
-        let field = CustomTextField(type: .email)
-        field.returnKeyType = .continue
-        return field
-    }()
     
-    private let emailHintLabel = UILabel.textFieldHintLabel()
-    
-    private let passwordTextField: CustomTextField = {
-        let field = CustomTextField(type: .password)
-        field.returnKeyType = .done
-        return field
-    }()
-    
-    private let passwordHintLabel = UILabel.textFieldHintLabel()
+    private lazy var emailInput = TextFieldWithWint(type: .email, delegate: self, returnKeyType: .continue)
+    private lazy var passwordInput = TextFieldWithWint(type: .password, delegate: self, returnKeyType: .done)
     
     lazy private var forgotPasswordButton: UIButton = {
         let button = UIButton()
@@ -51,10 +39,42 @@ class SignInViewController: UIViewController {
         button.setTitle("Forgot password?", for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.addTarget(self, action: #selector(forgotPasswordButtonTapped), for: .touchUpInside)
+        
+        let loginButton = FBLoginButton()
         return button
     }()
     
-    private let signInButton: CustomButton = CustomButton(title: "Log in")
+    private lazy var signInButton: CustomButton = {
+        let button = CustomButton(title: "Log in")
+        button.isActive = false
+        button.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private let dividerView = DividerView(title: "Or Login with")
+    
+    private let googleButton = RegistrationButton(type: .google)
+    private let appleButton = RegistrationButton(type: .apple)
+    private let facebookButton = RegistrationButton(type: .facebook)
+    
+    private let loginButtonsView = LoginButtonsView(title: "Or Login with")
+
+    private lazy var dontHaveAccountLabel: UILabel = {
+        let label = UILabel()
+        let text = "Don't have an account? Register now"
+        let attributedString = NSMutableAttributedString(string: text)
+        let highlightedAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemMint]
+        if let range = text.range(of: "Register now") {
+             let nsRange = NSRange(range, in: text)
+             attributedString.addAttributes(highlightedAttributes, range: nsRange)
+         }
+        label.attributedText = attributedString
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.addRangeGesture(stringRange: "Register now") { [weak self] in
+            self?.viewOutput.userDidTapRegister()
+        }
+        return label
+    }()
     
     private let contentView: UIView = {
         let contentView = UIView()
@@ -97,22 +117,25 @@ class SignInViewController: UIViewController {
     
     // MARK: - setup
     private func setupViews() {
-        title = "Log in"
+        title = "Sign in"
         view.backgroundColor = .white
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         view.addGestureRecognizer(tapGesture)
-        
-        view.addSubviews(views: imageView, emailTextField, emailHintLabel,
-                         passwordTextField, passwordHintLabel, forgotPasswordButton,
-                         signInButton, loaderContainer, loader)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
 
-        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
-        signInButton.isActive = false
+        view.addSubviews(views: imageView, emailInput,
+                         passwordInput, forgotPasswordButton,
+                         signInButton, loginButtonsView, dontHaveAccountLabel, loaderContainer, loader)
         
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
+        loginButtonsView.onAppleButtonTap = { [weak self] sender in
+            self?.appleButtonTapped(sender)
+        }
+        loginButtonsView.onGoogleButtonTap = { [weak self] sender in
+            self?.googleButtonTapped(sender)
+        }
+        loginButtonsView.onFacebookButtonTap = { [weak self] sender in
+            self?.facebookButtonTapped(sender)
+        }
+
     }
     
     private func setupNavigationBar() {
@@ -132,42 +155,38 @@ class SignInViewController: UIViewController {
             make.width.height.equalTo(100)
         }
         
-        emailTextField.snp.makeConstraints { make in
+        emailInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(imageView.snp.bottom).offset(50)
             make.width.equalToSuperview().inset(50)
-            make.height.equalTo(52)
         }
         
-        emailHintLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(5)
+        passwordInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(emailTextField).inset(10)
-        }
-        
-        passwordTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(emailHintLabel.snp.bottom).offset(10)
+            make.top.equalTo(emailInput.snp.bottom).offset(10)
             make.width.equalToSuperview().inset(50)
-            make.height.equalTo(52)
         }
-        
-        passwordHintLabel.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(5)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(passwordTextField).inset(10)
-        }
-        
+
         forgotPasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordHintLabel.snp.bottom).offset(5)
-            make.trailing.equalTo(passwordTextField)
+            make.top.equalTo(passwordInput.snp.bottom).offset(5)
+            make.trailing.equalTo(passwordInput)
         }
-        
+
         signInButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(forgotPasswordButton.snp.bottom).offset(15)
             make.width.equalToSuperview().inset(50)
             make.height.equalTo(52)
+        }
+        
+        loginButtonsView.snp.makeConstraints { make in
+            make.top.equalTo(signInButton.snp.bottom).offset(35)
+            make.horizontalEdges.equalToSuperview().inset(22)
+        }
+        
+        dontHaveAccountLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(5)
         }
         
         loaderContainer.snp.makeConstraints { make in
@@ -185,11 +204,11 @@ class SignInViewController: UIViewController {
     }
     
     @objc private func signInButtonTapped() {
+
+        emailInput.textField.resignFirstResponder()
+        passwordInput.textField.resignFirstResponder()
         
-        emailTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
+        guard let email = emailInput.textField.text, let password = passwordInput.textField.text else {
             return
         }
         
@@ -200,22 +219,23 @@ class SignInViewController: UIViewController {
         viewOutput.userDidTapForgotPassword()
     }
     
-    @objc private func didTapRegister() {
-//        let vc = SignUpViewController()
-//        vc.title = "Create Account"
-//        navigationController?.pushViewController(vc, animated: true)
+    private func googleButtonTapped(_ sender: RegistrationButton?) {
+        sender?.showAnimation { [weak self] in
+            self?.viewOutput.userDidTapSignInWithGoogle()
+        }
     }
     
-    private func alertUserLoginError() {
-        let alert = UIAlertController(title: "Woops", message: "Please enter all information to log in", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-        
-        present(alert, animated: true)
+    private func appleButtonTapped(_ sender: RegistrationButton?) {
+        sender?.showAnimation {
+            
+        }
     }
     
-    private var isPasswordValid = false
-    private var isEmailValid = false
+    private func facebookButtonTapped(_ sender: RegistrationButton?) {
+        sender?.showAnimation { [weak self] in
+            self?.viewOutput.userDidTapSignInWithFacebook()
+        }
+    }
 
 }
 
@@ -237,11 +257,11 @@ extension SignInViewController: SignInViewInput {
     }
     
     func displayEmailHint(_ hint: String?) {
-        displayHint(hint, on: emailHintLabel, userInfoOption: .emailValid)
+        displayHint(hint, on: emailInput.hintLabel, userInfoOption: .emailValid)
     }
     
     func displayPasswordHint(_ hint: String?) {
-        displayHint(hint, on: passwordHintLabel, userInfoOption: .passwordValid)
+        displayHint(hint, on: passwordInput.hintLabel, userInfoOption: .passwordValid)
     }
 
     private func displayHint(_ hint: String?, on label: UILabel, userInfoOption: ValidationOptions) {
@@ -295,9 +315,9 @@ extension SignInViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            passwordTextField.becomeFirstResponder()
-        } else if textField == passwordTextField {
+        if textField == emailInput.textField {
+            passwordInput.textField.becomeFirstResponder()
+        } else if textField == passwordInput.textField {
             signInButtonTapped()
         }
         return true
@@ -348,5 +368,3 @@ private extension SignInViewController {
     }
     
 }
-
-

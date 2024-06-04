@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - displayAlert
 extension UIViewController {
     
     func displayAlert(with message: String) {

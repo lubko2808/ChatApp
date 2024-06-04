@@ -7,18 +7,14 @@
 
 import Foundation
 import FirebaseAuth
+import GoogleSignIn
+import FBSDKLoginKit
+import FBSDKCoreKit
 
-struct AuthDataResultModel {
-    let uid: String
-    let email: String?
-    let photoUrl: String?
-    
-    init(user: User) {
-        self.uid = user.uid
-        self.email = user.email
-        self.photoUrl = user.photoURL?.absoluteString
-    }
-    
+enum AuthError: Error {
+    case idTokenIsNil
+    case FBLoginResultIsNil
+    case FBLoginIsCancelled
 }
 
 final class AuthenticationManager {
@@ -31,12 +27,8 @@ final class AuthenticationManager {
         Auth.auth().currentUser
     }
     
-//    @discardableResult
-//    public func createUser(email: String, password: String) async throws -> User {
-//        let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-//        return authDataResult.user
-//    }
-    
+
+    // MARK: - Email
     public func signUpUser(email: String, password: String) async -> Result<User, Error> {
         do {
             let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -46,7 +38,65 @@ final class AuthenticationManager {
         }
     }
     
+    // MARK: - Google
+    @MainActor
+    public func signInWithGoogle(presenting viewController: UIViewController) async throws -> User {
+        let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: viewController)
+        let accessToken = result.user.accessToken
+        guard let idToken = result.user.idToken else {
+            throw AuthError.idTokenIsNil
+        }
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+        let authDataResult = try await Auth.auth().signIn(with: credential)
+        return authDataResult.user
+    }
     
+    // MARK: - Facebook
+    public func signInWithFacebook(from viewController: UIViewController) async throws -> User {
+        LoginManager().logOut();
+        let result = try await logInWithFacebook(from: viewController)
+        print("here")
+        if result.isCancelled {
+            throw AuthError.FBLoginIsCancelled
+        } else {
+            try await startFBAuth()
+            print("here 2")
+            let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current?.tokenString ?? "")
+            print("here 3")
+            let result = try await Auth.auth().signIn(with: credential)
+            print("here 4")
+            return result.user
+        }
+    }
+    
+    private func startFBAuth() async throws {
+        try await withCheckedThrowingContinuation { continuation in
+            GraphRequest(graphPath: "me", parameters: [:], tokenString: AccessToken.current?.tokenString, version: nil, httpMethod: .get).start { _, _, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume()
+                }
+            }
+        } as Void
+    }
+    
+    @MainActor
+    private func logInWithFacebook(from viewController: UIViewController) async throws -> LoginManagerLoginResult {
+        try await withCheckedThrowingContinuation { continuation in
+            let loginManager = LoginManager()
+            loginManager.logIn(permissions: ["email", "public_profile"], from: viewController) { result, error in
+                if let error { 
+                    continuation.resume(throwing: error)
+                } else if let result {
+                    continuation.resume(returning: result)
+                } else {
+                    continuation.resume(throwing: AuthError.FBLoginResultIsNil)
+                }
+            }
+        }
+    }
+
     
     @discardableResult
     public func signInUser(email: String, password: String) async throws -> User {

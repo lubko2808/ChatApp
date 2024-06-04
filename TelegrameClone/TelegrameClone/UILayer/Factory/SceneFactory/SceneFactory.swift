@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneFactory {
     
@@ -78,6 +79,13 @@ class SceneFactory {
     static func makeForgotPasswordScene(coordinator: AuthenticationCoordinator) -> ForgotPasswordViewController {
         let presenter = ForgotPasswordPresenter(coordinator: coordinator)
         let controller = ForgotPasswordViewController(viewOutput: presenter)
+        presenter.viewInput = controller
+        return controller
+    }
+    
+    static func makeProfileSetupScene(coordinator: AuthenticationCoordinator, user: User) -> ProfileSetupViewController {
+        let presenter = ProfileSetupPresenter(coordinator: coordinator, user: user)
+        let controller = ProfileSetupViewController(viewOutput: presenter)
         presenter.viewInput = controller
         return controller
     }

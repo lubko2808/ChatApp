@@ -15,5 +15,5 @@ class UserStorage {
         get { UserDefaults.standard.bool(forKey: "passedOnboarding") }
         set { UserDefaults.standard.set(newValue, forKey: "passedOnboarding") }
     }
-    
+
 }

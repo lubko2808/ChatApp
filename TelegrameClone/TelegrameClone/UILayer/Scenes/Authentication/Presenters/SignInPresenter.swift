@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 protocol SignInViewOutput: AnyObject {
     func userDidEnterEmail(_ email: String)
@@ -13,6 +14,10 @@ protocol SignInViewOutput: AnyObject {
     func userDidTapSignInButton(email: String, password: String)
     func userDidTapSignUpButton()
     func userDidTapForgotPassword()
+    func userDidTapSignInWithGoogle()
+    func userDidTapSignInWithFacebook()
+    func userDidTapSignInWithApple()
+    func userDidTapRegister()
 }
 
 protocol SignInViewInput: AnyObject {
@@ -88,16 +93,84 @@ extension SignInPresenter: SignInViewOutput {
                     coordinator.finish()
                 }
             } catch {
-                await MainActor.run {
-                    viewInput?.stopLoader()
-                    viewInput?.displayError(with: error.localizedDescription)
-                }
+                await handleError(error)
             }
         }
     }
     
     func userDidTapForgotPassword() {
         coordinator.showForgotPasswordScene()
+    }
+    
+    func userDidTapSignInWithGoogle() {
+        viewInput?.startLoader()
+        Task {
+            guard let presentingVC = viewInput as? SignInViewController else { return }
+            do {
+                let user = try await AuthenticationManager.shared.signInWithGoogle(presenting: presentingVC)
+                try await checkIfUserExists(user: user)
+            } catch AuthError.idTokenIsNil {
+                await MainActor.run {
+                    viewInput?.stopLoader()
+                    print("error: idToken is nil")
+                }
+            } catch {
+                await handleError(error)
+            }
+        }
+    }
+    
+    func userDidTapSignInWithFacebook() {
+        viewInput?.startLoader()
+        Task {
+            guard let presentingVC = viewInput as? SignInViewController else { return }
+            do {
+                let user = try await AuthenticationManager.shared.signInWithFacebook(from: presentingVC)
+                try await checkIfUserExists(user: user)
+            } catch AuthError.FBLoginIsCancelled {
+                await MainActor.run {
+                    viewInput?.stopLoader()
+                }
+            }
+            catch AuthError.FBLoginResultIsNil {
+                await MainActor.run {
+                    viewInput?.stopLoader()
+                    print("AuthError.FBLoginResultIsNil")
+                }
+            } catch {
+                print(error.localizedDescription)
+                await handleError(error)
+            }
+        }
+    }
+    
+    private func handleError(_ error: Error) async {
+        await MainActor.run {
+            viewInput?.stopLoader()
+            viewInput?.displayError(with: error.localizedDescription)
+        }
+    }
+    
+    private func checkIfUserExists(user: User) async throws {
+        let isUserExists = try await UserManager.shared.isUserExists(userId: user.uid)
+        await MainActor.run {
+            viewInput?.stopLoader()
+            if !isUserExists {
+                coordinator.showProfileSetupScene(user: user)
+            } else {
+                coordinator.finish()
+            }
+        }
+    }
+    
+    
+    
+    func userDidTapSignInWithApple() {
+    
+    }
+    
+    func userDidTapRegister() {
+        coordinator.showSignUpScene()
     }
     
     

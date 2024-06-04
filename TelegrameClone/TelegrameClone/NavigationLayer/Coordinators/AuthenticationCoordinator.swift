@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 final class AuthenticationCoordinator: Coordinator {
     
@@ -32,6 +33,8 @@ extension AuthenticationCoordinator {
     func showSignInScene() {
         let viewController = factory.makeSignInScene(coordinator: self)
         navigationController?.pushViewController(viewController, animated: true)
+//        let viewController = factory.makeProfileSetupScene(coordinator: self, user: Auth.auth().sign)
+//        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func showSignUpScene() {
@@ -44,6 +47,13 @@ extension AuthenticationCoordinator {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    func showProfileSetupScene(user: User) {
+        let viewController = factory.makeProfileSetupScene(coordinator: self, user: user)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
     
+    func goBack() {
+        navigationController?.popViewController(animated: true)
+    }
     
 }

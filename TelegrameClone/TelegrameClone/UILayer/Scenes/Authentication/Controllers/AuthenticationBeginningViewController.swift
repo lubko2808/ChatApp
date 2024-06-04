@@ -49,6 +49,11 @@ class AuthenticationBeginningViewController: UIViewController {
         signInButton.addTarget(self, action: #selector(onSignInButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(onSignUpButtonTapped), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: nil, style: .plain, target: nil, action: nil)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
     }
     
     private func setupConstraints() {

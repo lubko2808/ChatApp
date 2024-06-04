@@ -47,4 +47,16 @@ final class UserManager {
         try userCollection.document(user.userId).setData(from: user, merge: false)
     }
     
+    public func isUserWithUsernameExistes(_ username: String) async throws -> Bool {
+        let snapshot = try await userCollection.whereField("username", isEqualTo: username).getDocuments()
+        let documents = snapshot.documents
+        return !documents.isEmpty
+    }
+    
+    public func isUserExists(userId: String) async throws -> Bool {
+        let snapshot = try await  userCollection.whereField("user_id", isEqualTo: userId).getDocuments()
+        let documents = snapshot.documents
+        return !documents.isEmpty
+    }
+    
 }

@@ -10,6 +10,10 @@
 		3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */; };
 		3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */; };
 		3E31830B2C02024100B0DB59 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830A2C02024100B0DB59 /* SnapKit */; };
+		3E31830E2C02051500B0DB59 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830D2C02051500B0DB59 /* GoogleSignIn */; };
+		3E3183102C02051500B0DB59 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830F2C02051500B0DB59 /* GoogleSignInSwift */; };
+		3E3183122C02077E00B0DB59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E3183112C02077E00B0DB59 /* GoogleService-Info.plist */; };
+		3E3E73012C0E2E9E001B658A /* LoginButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E73002C0E2E9E001B658A /* LoginButtonsView.swift */; };
 		3E5DD8162BE65BD900688F90 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8152BE65BD900688F90 /* AppCoordinator.swift */; };
 		3E5DD8182BE65C0100688F90 /* Onboarding Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8172BE65C0100688F90 /* Onboarding Coordinator.swift */; };
 		3E5DD81A2BE65C0E00688F90 /* AuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8192BE65C0E00688F90 /* AuthenticationCoordinator.swift */; };
@@ -23,6 +27,9 @@
 		3E5DD8382BE6B67800688F90 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8372BE6B67800688F90 /* ContactsViewController.swift */; };
 		3E5DD83A2BE6B6C700688F90 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8392BE6B6C700688F90 /* SettingsViewController.swift */; };
 		3E5DD83C2BE6B6DB00688F90 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD83B2BE6B6DB00688F90 /* ChatsViewController.swift */; };
+		3E6776972C030EE600FFC985 /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6776962C030EE600FFC985 /* ProfileSetupViewController.swift */; };
+		3E6776992C030F3F00FFC985 /* ProfileSetupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6776982C030F3F00FFC985 /* ProfileSetupPresenter.swift */; };
+		3E67769B2C03159D00FFC985 /* TextFieldWithWint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67769A2C03159D00FFC985 /* TextFieldWithWint.swift */; };
 		3E6C32C72BF0CAFE00DDC082 /* ValidationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C32C62BF0CAFE00DDC082 /* ValidationOptions.swift */; };
 		3E6C32C92BF1133900DDC082 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C32C82BF1133900DDC082 /* ForgotPasswordViewController.swift */; };
 		3E6C32CB2BF1135800DDC082 /* ForgotPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C32CA2BF1135800DDC082 /* ForgotPasswordPresenter.swift */; };
@@ -32,6 +39,8 @@
 		3E6C5B1A2BEFDB41005B8561 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C5B192BEFDB41005B8561 /* UIViewController+Extension.swift */; };
 		3E6C5B1F2BEFE246005B8561 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C5B1E2BEFE246005B8561 /* SettingsPresenter.swift */; };
 		3E6C5B212BF011C3005B8561 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C5B202BF011C3005B8561 /* UserManager.swift */; };
+		3E6EB41E2C025BA000638A78 /* RegistrationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EB41D2C025BA000638A78 /* RegistrationButton.swift */; };
+		3E6EB4202C025ED200638A78 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6EB41F2C025ED200638A78 /* DividerView.swift */; };
 		3E6F07032BED556F00F868F2 /* AuthenticationBeginningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F07022BED556F00F868F2 /* AuthenticationBeginningViewController.swift */; };
 		3E6F07052BED566800F868F2 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F07042BED566800F868F2 /* UIView+Extension.swift */; };
 		3E6F07072BED5A0F00F868F2 /* AuthenticationBeginningPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F07062BED5A0F00F868F2 /* AuthenticationBeginningPresenter.swift */; };
@@ -82,13 +91,17 @@
 		3E8103942BE79CBF004C97A3 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103932BE79CBF004C97A3 /* AppColors.swift */; };
 		3E8103962BE7F700004C97A3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103952BE7F700004C97A3 /* SignUpViewController.swift */; };
 		3E8FC1DE2BEE481C007BF309 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FC1DD2BEE481C007BF309 /* UIImage+Extension.swift */; };
-		3E94EA512BE95ED800B4CCCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E94EA502BE95ED800B4CCCD /* GoogleService-Info.plist */; };
 		3E94EA542BE96A9E00B4CCCD /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94EA532BE96A9E00B4CCCD /* AuthenticationManager.swift */; };
+		3ED6294F2C07A2F60085FDE7 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED6294E2C07A2F60085FDE7 /* FacebookBasics */; };
+		3ED629512C07A2F60085FDE7 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED629502C07A2F60085FDE7 /* FacebookCore */; };
+		3ED629532C07A2F60085FDE7 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED629522C07A2F60085FDE7 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		3E3183112C02077E00B0DB59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3E3E73002C0E2E9E001B658A /* LoginButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonsView.swift; sourceTree = "<group>"; };
 		3E5DD8152BE65BD900688F90 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3E5DD8172BE65C0100688F90 /* Onboarding Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding Coordinator.swift"; sourceTree = "<group>"; };
 		3E5DD8192BE65C0E00688F90 /* AuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -102,6 +115,9 @@
 		3E5DD8372BE6B67800688F90 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		3E5DD8392BE6B6C700688F90 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3E5DD83B2BE6B6DB00688F90 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
+		3E6776962C030EE600FFC985 /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
+		3E6776982C030F3F00FFC985 /* ProfileSetupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupPresenter.swift; sourceTree = "<group>"; };
+		3E67769A2C03159D00FFC985 /* TextFieldWithWint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithWint.swift; sourceTree = "<group>"; };
 		3E6C32C62BF0CAFE00DDC082 /* ValidationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOptions.swift; sourceTree = "<group>"; };
 		3E6C32C82BF1133900DDC082 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		3E6C32CA2BF1135800DDC082 /* ForgotPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPresenter.swift; sourceTree = "<group>"; };
@@ -111,6 +127,8 @@
 		3E6C5B192BEFDB41005B8561 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		3E6C5B1E2BEFE246005B8561 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		3E6C5B202BF011C3005B8561 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		3E6EB41D2C025BA000638A78 /* RegistrationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationButton.swift; sourceTree = "<group>"; };
+		3E6EB41F2C025ED200638A78 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		3E6F07022BED556F00F868F2 /* AuthenticationBeginningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBeginningViewController.swift; sourceTree = "<group>"; };
 		3E6F07042BED566800F868F2 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		3E6F07062BED5A0F00F868F2 /* AuthenticationBeginningPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBeginningPresenter.swift; sourceTree = "<group>"; };
@@ -143,7 +161,6 @@
 		3E8103932BE79CBF004C97A3 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		3E8103952BE7F700004C97A3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3E8FC1DD2BEE481C007BF309 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		3E94EA502BE95ED800B4CCCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E94EA532BE96A9E00B4CCCD /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E707A052BE564C500E17DBC /* FirebaseStorageCombine-Community in Frameworks */,
+				3ED629512C07A2F60085FDE7 /* FacebookCore in Frameworks */,
 				3E7079F32BE564C500E17DBC /* FirebaseInAppMessaging-Beta in Frameworks */,
 				3E7079E72BE564C500E17DBC /* FirebaseDatabaseSwift in Frameworks */,
 				3E31830B2C02024100B0DB59 /* SnapKit in Frameworks */,
@@ -165,13 +183,17 @@
 				3E7079ED2BE564C500E17DBC /* FirebaseFirestoreSwift in Frameworks */,
 				3E7079FF2BE564C500E17DBC /* FirebaseRemoteConfig in Frameworks */,
 				3E707A032BE564C500E17DBC /* FirebaseStorage in Frameworks */,
+				3E31830E2C02051500B0DB59 /* GoogleSignIn in Frameworks */,
 				3E7079FB2BE564C500E17DBC /* FirebaseMessaging in Frameworks */,
 				3E7079EB2BE564C500E17DBC /* FirebaseFirestore in Frameworks */,
 				3E7079F72BE564C500E17DBC /* FirebaseInstallations in Frameworks */,
 				3E7079E32BE564C500E17DBC /* FirebaseCrashlytics in Frameworks */,
 				3E7079EF2BE564C500E17DBC /* FirebaseFunctions in Frameworks */,
+				3ED629532C07A2F60085FDE7 /* FacebookLogin in Frameworks */,
 				3E707A012BE564C500E17DBC /* FirebaseRemoteConfigSwift in Frameworks */,
 				3E7079E12BE564C500E17DBC /* FirebaseAuthCombine-Community in Frameworks */,
+				3ED6294F2C07A2F60085FDE7 /* FacebookBasics in Frameworks */,
+				3E3183102C02051500B0DB59 /* GoogleSignInSwift in Frameworks */,
 				3E7079F12BE564C500E17DBC /* FirebaseFunctionsCombine-Community in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,6 +312,7 @@
 			children = (
 				3E8103902BE77BFC004C97A3 /* SignInViewController.swift */,
 				3E8103952BE7F700004C97A3 /* SignUpViewController.swift */,
+				3E6776962C030EE600FFC985 /* ProfileSetupViewController.swift */,
 				3E6F07022BED556F00F868F2 /* AuthenticationBeginningViewController.swift */,
 				3E6C32C82BF1133900DDC082 /* ForgotPasswordViewController.swift */,
 			);
@@ -302,6 +325,7 @@
 				3E6F07062BED5A0F00F868F2 /* AuthenticationBeginningPresenter.swift */,
 				3E6F07082BED5F4A00F868F2 /* SignInPresenter.swift */,
 				3E6F070A2BED5F5300F868F2 /* SignUpPresenter.swift */,
+				3E6776982C030F3F00FFC985 /* ProfileSetupPresenter.swift */,
 				3E6C32CA2BF1135800DDC082 /* ForgotPasswordPresenter.swift */,
 			);
 			path = Presenters;
@@ -392,7 +416,7 @@
 				3E7079B82BE560BD00E17DBC /* Resources */,
 				3E7079AD2BE55EB400E17DBC /* Assets.xcassets */,
 				3E7079AF2BE55EB400E17DBC /* LaunchScreen.storyboard */,
-				3E94EA502BE95ED800B4CCCD /* GoogleService-Info.plist */,
+				3E3183112C02077E00B0DB59 /* GoogleService-Info.plist */,
 				3E7079B22BE55EB400E17DBC /* Info.plist */,
 			);
 			path = TelegrameClone;
@@ -453,8 +477,12 @@
 			isa = PBXGroup;
 			children = (
 				3E81038C2BE77866004C97A3 /* CustomTextField.swift */,
+				3E67769A2C03159D00FFC985 /* TextFieldWithWint.swift */,
 				3E81038E2BE77ABC004C97A3 /* CustomButton.swift */,
 				3E6C32CC2BF1143400DDC082 /* PopUpView.swift */,
+				3E6EB41D2C025BA000638A78 /* RegistrationButton.swift */,
+				3E6EB41F2C025ED200638A78 /* DividerView.swift */,
+				3E3E73002C0E2E9E001B658A /* LoginButtonsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -513,6 +541,11 @@
 				3E707A022BE564C500E17DBC /* FirebaseStorage */,
 				3E707A042BE564C500E17DBC /* FirebaseStorageCombine-Community */,
 				3E31830A2C02024100B0DB59 /* SnapKit */,
+				3E31830D2C02051500B0DB59 /* GoogleSignIn */,
+				3E31830F2C02051500B0DB59 /* GoogleSignInSwift */,
+				3ED6294E2C07A2F60085FDE7 /* FacebookBasics */,
+				3ED629502C07A2F60085FDE7 /* FacebookCore */,
+				3ED629522C07A2F60085FDE7 /* FacebookLogin */,
 			);
 			productName = TelegrameClone;
 			productReference = 3E7079A12BE55EB300E17DBC /* TelegrameClone.app */;
@@ -545,6 +578,8 @@
 			packageReferences = (
 				3E7079DD2BE564C500E17DBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3E3183092C02024100B0DB59 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 3E7079A22BE55EB300E17DBC /* Products */;
 			projectDirPath = "";
@@ -569,7 +604,7 @@
 				3E7079CE2BE5616100E17DBC /* Roboto-BoldItalic.ttf in Resources */,
 				3E7079CB2BE5616100E17DBC /* Roboto-Regular.ttf in Resources */,
 				3E7079CD2BE5616100E17DBC /* Roboto-ThinItalic.ttf in Resources */,
-				3E94EA512BE95ED800B4CCCD /* GoogleService-Info.plist in Resources */,
+				3E3183122C02077E00B0DB59 /* GoogleService-Info.plist in Resources */,
 				3E7079CF2BE5616100E17DBC /* Roboto-LightItalic.ttf in Resources */,
 				3E7079D22BE5616100E17DBC /* Roboto-BlackItalic.ttf in Resources */,
 				3E7079CA2BE5616100E17DBC /* Roboto-Light.ttf in Resources */,
@@ -590,17 +625,23 @@
 				3E5DD81E2BE65C2C00688F90 /* ChatsCoordinator.swift in Sources */,
 				3E5DD82D2BE6B50F00688F90 /* TabBarController.swift in Sources */,
 				3E5DD8202BE65C4300688F90 /* SettingsCoordinator.swift in Sources */,
+				3E6776992C030F3F00FFC985 /* ProfileSetupPresenter.swift in Sources */,
 				3E6C5B1A2BEFDB41005B8561 /* UIViewController+Extension.swift in Sources */,
 				3E8FC1DE2BEE481C007BF309 /* UIImage+Extension.swift in Sources */,
+				3E6EB41E2C025BA000638A78 /* RegistrationButton.swift in Sources */,
 				3E6C5B162BEF8323005B8561 /* AppRegex.swift in Sources */,
+				3E3E73012C0E2E9E001B658A /* LoginButtonsView.swift in Sources */,
 				3E8103962BE7F700004C97A3 /* SignUpViewController.swift in Sources */,
+				3E6776972C030EE600FFC985 /* ProfileSetupViewController.swift in Sources */,
 				3E7079A92BE55EB300E17DBC /* ViewController.swift in Sources */,
 				3E6F07072BED5A0F00F868F2 /* AuthenticationBeginningPresenter.swift in Sources */,
 				3E6C32CB2BF1135800DDC082 /* ForgotPasswordPresenter.swift in Sources */,
 				3E81038D2BE77866004C97A3 /* CustomTextField.swift in Sources */,
 				3E8103942BE79CBF004C97A3 /* AppColors.swift in Sources */,
+				3E67769B2C03159D00FFC985 /* TextFieldWithWint.swift in Sources */,
 				3E6C5B182BEF8349005B8561 /* UILabel+Extension.swift in Sources */,
 				3E5DD8382BE6B67800688F90 /* ContactsViewController.swift in Sources */,
+				3E6EB4202C025ED200638A78 /* DividerView.swift in Sources */,
 				3E7079A52BE55EB300E17DBC /* AppDelegate.swift in Sources */,
 				3E6F07092BED5F4A00F868F2 /* SignInPresenter.swift in Sources */,
 				3E5DD8272BE65CC900688F90 /* UserStorage.swift in Sources */,
@@ -848,12 +889,28 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.0;
+			};
+		};
 		3E7079DD2BE564C500E17DBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 10.25.0;
+			};
+		};
+		3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -863,6 +920,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E3183092C02024100B0DB59 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		3E31830D2C02051500B0DB59 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		3E31830F2C02051500B0DB59 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 		3E7079DE2BE564C500E17DBC /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -963,6 +1030,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E7079DD2BE564C500E17DBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		3ED6294E2C07A2F60085FDE7 /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		3ED629502C07A2F60085FDE7 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		3ED629522C07A2F60085FDE7 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

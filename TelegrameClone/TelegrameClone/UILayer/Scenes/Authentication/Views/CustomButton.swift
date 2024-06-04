@@ -33,7 +33,7 @@ class CustomButton: UIButton {
         
         let titleColor: UIColor = .white
         self.setTitleColor(titleColor, for: .normal)
-        self.titleLabel?.font = UIFont.Roboto.regular.size(of: 19)
+        self.titleLabel?.font = UIFont.Roboto.medium.size(of: 19)
         self.translatesAutoresizingMaskIntoConstraints = false
         
     }

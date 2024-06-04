@@ -18,4 +18,5 @@ struct ValidationOptions: OptionSet {
     static let noneValid: ValidationOptions = []
     static let signInValid: ValidationOptions = [.emailValid, .passwordValid]
     static let signUpValid: ValidationOptions = [.displayNameValid, .usernameValid, .emailValid, .passwordValid]
+    static let profileValid: ValidationOptions = [.displayNameValid, usernameValid]
 }

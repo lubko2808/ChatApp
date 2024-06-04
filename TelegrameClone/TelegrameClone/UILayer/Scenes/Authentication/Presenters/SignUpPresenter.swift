@@ -62,7 +62,6 @@ extension SignUpPresenter: SignUpViewOutput {
         } else {
             viewInput?.displayDisplayNameHint(nil)
         }
-        
     }
     
     func userDidEnterUsername(_ username: String) {
@@ -83,7 +82,6 @@ extension SignUpPresenter: SignUpViewOutput {
         } else {
             viewInput?.displayUsernameHint(nil)
         }
-
     }
     
     func userDidEnterEmail(_ email: String) {
@@ -117,6 +115,15 @@ extension SignUpPresenter: SignUpViewOutput {
     func userDidTapSignUpButton(displayName: String, username: String, email: String, password: String) {
         viewInput?.startLoader()
         Task {
+            let isUserExistes = try await UserManager.shared.isUserWithUsernameExistes(username)
+            if isUserExistes {
+                await MainActor.run {
+                    viewInput?.stopLoader()
+                    viewInput?.displayError(with: "This username is already taken")
+                }
+                return
+            }
+     
             let result = await AuthenticationManager.shared.signUpUser(email: email, password: password)
             await MainActor.run {
                 viewInput?.stopLoader()
@@ -143,7 +150,6 @@ extension SignUpPresenter: SignUpViewOutput {
     func signUp(with email: String, password: String) async throws {
         
 //        let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-        
         
     }
     

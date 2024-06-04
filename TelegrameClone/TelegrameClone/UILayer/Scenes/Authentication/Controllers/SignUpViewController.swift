@@ -13,11 +13,6 @@ class SignUpViewController: UIViewController {
     private let viewOutput: SignUpViewOutput
     var validationOptions: ValidationOptions = .noneValid
     
-    enum Constants {
-        static let distanceFromHintToTextField: CGFloat = 5
-        static let distanceFromTextFieldToHint: CGFloat = 10
-    }
-
     // MARK: - Views
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -27,44 +22,13 @@ class SignUpViewController: UIViewController {
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
+    
+    private lazy var displayNameInput = TextFieldWithWint(type: .displayName, delegate: self, returnKeyType: .continue)
+    private lazy var usernameInput = TextFieldWithWint(type: .username, delegate: self, returnKeyType: .continue)
+    private lazy var emailInput = TextFieldWithWint(type: .email, delegate: self, returnKeyType: .continue)
+    private lazy var passwordInput = TextFieldWithWint(type: .password, delegate: self, returnKeyType: .done)
 
-    private let displayNameTextField: CustomTextField = {
-        let field = CustomTextField(type: .displayName)
-        field.returnKeyType = .continue
-        field.tag = 1
-        return field
-    }()
-    
-    private let displayNameHintLabel = UILabel.textFieldHintLabel()
-    
-    private let userNameTextField: CustomTextField = {
-        let field = CustomTextField(type: .username)
-        field.returnKeyType = .continue
-        field.tag = 2
-        return field
-    }()
-    
-    private let userNameHintLabel = UILabel.textFieldHintLabel()
-
-    private let emailTextField: CustomTextField = {
-        let field = CustomTextField(type: .email)
-        field.returnKeyType = .continue
-        field.tag = 3
-        return field
-    }()
-    
-    private let emailHintLabel = UILabel.textFieldHintLabel()
-
-    private let passwordTextField: CustomTextField = {
-        let field = CustomTextField(type: .password)
-        field.returnKeyType = .done
-        field.tag = 4
-        return field
-    }()
-    
-    private let passwordHintLabel = UILabel.textFieldHintLabel()
-    
-    private let registerButton = CustomButton(title: "Register")
+    private let signUpButton = CustomButton(title: "Sign Up")
     
     private let contentView: UIView = {
         let contentView = UIView()
@@ -102,28 +66,25 @@ class SignUpViewController: UIViewController {
     
     // MARK: - setup
     private func setupViews() {
-        title = "Log in"
+        title = "Sign up"
         view.backgroundColor = .white
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         view.addGestureRecognizer(tapGesture)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
 
-        registerButton.isActive = false
-        registerButton.addTarget(self, action: #selector(registrationButtonTapped), for: .touchUpInside)
+        signUpButton.isActive = false
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         
         view.addSubview(scrollView)
-        scrollView.addSubviews(views: contentView, displayNameTextField, displayNameHintLabel,
-                               userNameTextField, userNameHintLabel, emailTextField, emailHintLabel,
-                               passwordTextField, passwordHintLabel, registerButton)
-        
-        displayNameTextField.delegate = self
-        userNameTextField.delegate = self
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
+        scrollView.addSubviews(views: contentView, displayNameInput, usernameInput, emailInput, passwordInput, signUpButton)
         
         view.addSubview(loaderContainer)
         loader.translatesAutoresizingMaskIntoConstraints = false
         loaderContainer.addSubview(loader)
+        
+        displayNameInput.textField.tag = 1
+        usernameInput.textField.tag = 2
+        emailInput.textField.tag = 3
+        passwordInput.textField.tag = 4
     }
     
     private func setupNavigationBar() {
@@ -150,61 +111,33 @@ class SignUpViewController: UIViewController {
             make.width.equalTo(scrollView.snp.width)
         }
 
-        displayNameTextField.snp.makeConstraints { make in
+        displayNameInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(contentView.snp.top).offset(300)
             make.width.equalToSuperview().inset(50)
-            make.height.equalTo(52)
         }
         
-        displayNameHintLabel.snp.makeConstraints { make in
-            make.top.equalTo(displayNameTextField.snp.bottom).offset(Constants.distanceFromHintToTextField)
+        usernameInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(displayNameTextField).inset(10)
-        }
-        
-        userNameTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(displayNameHintLabel.snp.bottom).offset(Constants.distanceFromTextFieldToHint)
+            make.top.equalTo(displayNameInput.snp.bottom).offset(10)
             make.width.equalToSuperview().inset(50)
-            make.height.equalTo(52)
         }
         
-        userNameHintLabel.snp.makeConstraints { make in
-            make.top.equalTo(userNameTextField.snp.bottom).offset(Constants.distanceFromHintToTextField)
+        emailInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(userNameTextField).inset(10)
-        }
-        
-        emailTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(userNameHintLabel.snp.bottom).offset(Constants.distanceFromTextFieldToHint)
+            make.top.equalTo(usernameInput.snp.bottom).offset(10)
             make.width.equalToSuperview().inset(50)
-            make.height.equalTo(52)
         }
         
-        emailHintLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(Constants.distanceFromHintToTextField)
+        passwordInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(emailTextField).inset(10)
-        }
-        
-        passwordTextField.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(emailHintLabel.snp.bottom).offset(Constants.distanceFromTextFieldToHint)
+            make.top.equalTo(emailInput.snp.bottom).offset(10)
             make.width.equalToSuperview().inset(50)
-            make.height.equalTo(52)
         }
         
-        passwordHintLabel.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(Constants.distanceFromHintToTextField)
+        signUpButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(passwordTextField).inset(10)
-        }
-        
-        registerButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(passwordHintLabel.snp.bottom).offset(Constants.distanceFromTextFieldToHint)
+            make.top.equalTo(passwordInput.snp.bottom).offset(10)
             make.width.equalToSuperview().inset(50)
             make.height.equalTo(52)
             make.bottom.equalToSuperview()
@@ -218,7 +151,6 @@ class SignUpViewController: UIViewController {
             make.centerX.centerY.equalToSuperview()
         }
         
-        
     }
     
     // MARK: - Action handlers
@@ -226,25 +158,21 @@ class SignUpViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @objc private func registrationButtonTapped() {
-        print("registrationButtonTapped")
-        
-        emailTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        displayNameTextField.resignFirstResponder()
-        userNameTextField.resignFirstResponder()
+    @objc private func signUpButtonTapped() {
+    
+        emailInput.textField.resignFirstResponder()
+        passwordInput.textField.resignFirstResponder()
+        displayNameInput.textField.resignFirstResponder()
+        usernameInput.textField.resignFirstResponder()
         
         guard
-            let displayName = displayNameTextField.text,
-            let username = userNameTextField.text,
-            let email = emailTextField.text,
-            let password = passwordTextField.text 
+            let displayName = displayNameInput.textField.text,
+            let username = usernameInput.textField.text,
+            let email = emailInput.textField.text,
+            let password = passwordInput.textField.text
         else { return }
         
         viewOutput.userDidTapSignUpButton(displayName: displayName, username: username, email: email, password: password)
-    }
-    
-    @objc private func didTapRegister() {
     }
 
 }
@@ -278,8 +206,8 @@ extension SignUpViewController: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField === passwordTextField {
-            registrationButtonTapped()
+        if textField === passwordInput.textField {
+            signUpButtonTapped()
         } else if let nextTextField = view.viewWithTag(textField.tag + 1) {
             nextTextField.becomeFirstResponder()
         }
@@ -306,19 +234,19 @@ extension SignUpViewController: SignUpViewInput {
     }
     
     func displayDisplayNameHint(_ hint: String?) {
-        displayHint(hint, on: displayNameHintLabel, userInfoOption: .displayNameValid)
+        displayHint(hint, on: displayNameInput.hintLabel, userInfoOption: .displayNameValid)
     }
     
     func displayUsernameHint(_ hint: String?) {
-        displayHint(hint, on: userNameHintLabel, userInfoOption: .usernameValid)
+        displayHint(hint, on: usernameInput.hintLabel, userInfoOption: .usernameValid)
     }
     
     func displayEmailHint(_ hint: String?) {
-        displayHint(hint, on: emailHintLabel, userInfoOption: .emailValid)
+        displayHint(hint, on: emailInput.hintLabel, userInfoOption: .emailValid)
     }
     
     func displayPasswordHint(_ hint: String?) {
-        displayHint(hint, on: passwordHintLabel, userInfoOption: .passwordValid)
+        displayHint(hint, on: passwordInput.hintLabel, userInfoOption: .passwordValid)
     }
     
     private func displayHint(_ hint: String?, on label: UILabel, userInfoOption: ValidationOptions) {
@@ -329,9 +257,9 @@ extension SignUpViewController: SignUpViewInput {
         }
         
         if validationOptions == .signUpValid {
-            registerButton.isActive = true
+            signUpButton.isActive = true
         } else {
-            registerButton.isActive = false
+            signUpButton.isActive = false
         }
         
         guard let hint else {

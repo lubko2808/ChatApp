@@ -8,14 +8,12 @@
 import Foundation
 
 protocol ForgotPasswordViewOutput: AnyObject {
-    
     func userDidEnterEmail(_ email: String)
     func userDidTapSendButton(email: String)
-
+    func userDidTapLogin()
 }
 
 protocol ForgotPasswordViewInput: AnyObject {
-    
     func displayEmailHint(_ hint: String?)
     func displayPopUp(with message: String)
     func displayError(with message: String)
@@ -25,10 +23,14 @@ class ForgotPasswordPresenter {
     
     private var coordinator: AuthenticationCoordinator
     weak var viewInput: ForgotPasswordViewInput?
+    private let authenticationManager: AuthenticationManagerProtocol
     
-    init(coordinator: AuthenticationCoordinator, viewInput: ForgotPasswordViewInput? = nil) {
+    init(coordinator: AuthenticationCoordinator, 
+         viewInput: ForgotPasswordViewInput? = nil,
+         authenticationManager: AuthenticationManagerProtocol) {
         self.coordinator = coordinator
         self.viewInput = viewInput
+        self.authenticationManager = authenticationManager
     }
     
 }
@@ -51,19 +53,19 @@ extension ForgotPasswordPresenter: ForgotPasswordViewOutput {
     }
     
     func userDidTapSendButton(email: String) {
-        Task {
+        Task { @MainActor in
             do {
-                try await AuthenticationManager.shared.resetPassword(with: email)
-                await MainActor.run {
-                    viewInput?.displayPopUp(with: "We have sent you email")
-                }
+                try await authenticationManager.resetPassword(with: email)
+                viewInput?.displayPopUp(with: "We have sent you email")
             } catch {
-                await MainActor.run {
-                    viewInput?.displayError(with: error.localizedDescription)
-                }
+                viewInput?.displayError(with: error.localizedDescription)
             }
         }
         
+    }
+    
+    func userDidTapLogin() {
+        coordinator.showSignInScene()
     }
     
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileSetupViewController: UIViewController {
+class ProfileSetupViewController: AuthBaseViewController {
     // MARK: - Properties
     private let viewOutput: ProfileSetupViewOutput
     private var validationOptions: ValidationOptions = .noneValid
@@ -18,16 +18,6 @@ class ProfileSetupViewController: UIViewController {
     
     private let continueButton = CustomButton(title: "Continue")
     private let cancelButton = CustomButton(title: "Cancel", background: .red)
-    
-    private let loaderContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.isHidden = true
-        return view
-    }()
-    
-    private let loader = UIActivityIndicatorView(style: .large)
     
     // MARK: - Init
     init(viewOutput: ProfileSetupViewOutput) {
@@ -49,15 +39,9 @@ class ProfileSetupViewController: UIViewController {
     
     // MARK: - Setup
     private func setupViews() {
-        view.backgroundColor = .white
-        view.addSubviews(views: displayNameInput, usernameInput, continueButton, cancelButton, loaderContainer)
-        loader.translatesAutoresizingMaskIntoConstraints = false
-        loaderContainer.addSubview(loader)
+        view.addSubviews(views: displayNameInput, usernameInput, continueButton, cancelButton)
         continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
-        view.addGestureRecognizer(tapGesture) 
     }
     
     private func setupNavigationBar() {
@@ -97,21 +81,9 @@ class ProfileSetupViewController: UIViewController {
             make.width.equalToSuperview().inset(50)
             make.height.equalTo(52)
         }
-        
-        loaderContainer.snp.makeConstraints { make in
-            make.top.bottom.trailing.leading.equalToSuperview()
-        }
-        
-        loader.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
     }
     
     // MARK: - Action handlers
-    @objc private func screenTapped() {
-        view.endEditing(true)
-    }
-    
     @objc private func continueButtonTapped() {
         
         displayNameInput.textField.resignFirstResponder()
@@ -132,18 +104,8 @@ class ProfileSetupViewController: UIViewController {
 }
 
 // MARK: - UITextFieldDelegate
-extension ProfileSetupViewController: UITextFieldDelegate {
+extension ProfileSetupViewController {
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard let textField = textField as? CustomTextField else { return }
-        textField.isTextFieldActive = true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let textField = textField as? CustomTextField else { return }
-        textField.isTextFieldActive = false
-    }
-    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let textField = textField as? CustomTextField else { return }
         guard let text = textField.text else { return }
@@ -177,21 +139,7 @@ extension ProfileSetupViewController: ProfileSetupViewInput {
     func displayDisplayNameHint(_ hint: String?) {
         displayHint(hint, on: displayNameInput.hintLabel, userInfoOption: .displayNameValid)
     }
-    
-    func startLoader() {
-        loaderContainer.isHidden = false
-        loader.startAnimating()
-    }
-    
-    func stopLoader() {
-        loaderContainer.isHidden = true
-        loader.stopAnimating()
-    }
-    
-    func displayError(with message: String) {
-        self.displayAlert(with: message)
-    }
-    
+
     private func displayHint(_ hint: String?, on label: UILabel, userInfoOption: ValidationOptions) {
         if hint == nil {
             validationOptions.insert(userInfoOption)
@@ -213,9 +161,4 @@ extension ProfileSetupViewController: ProfileSetupViewInput {
         label.textColor = .red
     }
     
-    
-    
-    
 }
-
-

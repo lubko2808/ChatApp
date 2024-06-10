@@ -9,6 +9,8 @@ import UIKit
 
 class RegistrationButton: UIButton {
     
+    
+    
     enum RegistrationButtonType {
         case google
         case facebook

@@ -10,13 +10,13 @@ import FirebaseFirestoreSwift
 
 struct DBUser: Codable {
     let userId: String
-    let photoUrl: String?
+    let photoUrl: URL
     let displayName: String
     let username: String
     let email: String
     let dateCreated: Date
     
-    init(userId: String, photoUrl: String?, displayName: String, username: String, email: String) {
+    init(userId: String, photoUrl: URL, displayName: String, username: String, email: String) {
         self.userId = userId
         self.photoUrl = photoUrl
         self.displayName = displayName
@@ -36,11 +36,15 @@ struct DBUser: Codable {
     
 }
 
-final class UserManager {
-    
-    static let shared = UserManager()
-    private init() {}
-    
+
+protocol UserManagerProtocol {
+    func createNewUser(user: DBUser) throws
+    func isUserWithUsernameExistes(_ username: String) async throws -> Bool
+    func isUserExists(userId: String) async throws -> Bool 
+}
+
+final class UserManager: UserManagerProtocol {
+
     private let userCollection = Firestore.firestore().collection("users")
 
     public func createNewUser(user: DBUser) throws {

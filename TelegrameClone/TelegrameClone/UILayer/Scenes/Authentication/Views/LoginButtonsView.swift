@@ -6,18 +6,32 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 
 class LoginButtonsView: UIView {
     
+    // MARK: - Properties
+    private let googleButtonRelay = PublishRelay<RegistrationButton?>()
+    public var googleButtonTapped: Observable<RegistrationButton?> {
+        googleButtonRelay.asObservable()
+    }
+    private let appleButtonRelay = PublishRelay<RegistrationButton?>()
+    public var appleButtonTapped: Observable<RegistrationButton?> {
+        appleButtonRelay.asObservable()
+    }
+    private let facebookButtonRelay = PublishRelay<RegistrationButton?>()
+    public var facebookButtonTapped: Observable<RegistrationButton?> {
+        facebookButtonRelay.asObservable()
+    }
+    
+    // MARK: - Views
     private let dividerView = DividerView(title: "")
     
     private let googleButton = RegistrationButton(type: .google)
     private let appleButton = RegistrationButton(type: .apple)
     private let facebookButton = RegistrationButton(type: .facebook)
-    
-    public var onGoogleButtonTap: ((RegistrationButton?) -> ())?
-    public var onAppleButtonTap: ((RegistrationButton?) -> ())?
-    public var onFacebookButtonTap: ((RegistrationButton?) -> ())?
+
     
     init(title: String) {
         super.init(frame: .zero)
@@ -26,15 +40,15 @@ class LoginButtonsView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         self.addSubviews(views: dividerView, googleButton, appleButton, facebookButton)
         googleButton.addAction(UIAction { [weak self] action in
-            self?.onGoogleButtonTap?(action.sender as? RegistrationButton)
+            self?.googleButtonRelay.accept( action.sender as? RegistrationButton )
         }, for: .touchUpInside)
         
         appleButton.addAction(UIAction { [weak self] action in
-            self?.onAppleButtonTap?(action.sender as? RegistrationButton)
+            self?.appleButtonRelay.accept( action.sender as? RegistrationButton )
         }, for: .touchUpInside)
         
         facebookButton.addAction(UIAction { [weak self] action in
-            self?.onFacebookButtonTap?(action.sender as? RegistrationButton)
+            self?.facebookButtonRelay.accept( action.sender as? RegistrationButton )
         }, for: .touchUpInside)
         
         setConstraints()

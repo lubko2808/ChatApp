@@ -16,13 +16,20 @@ enum AuthError: Error {
     case FBLoginResultIsNil
     case FBLoginIsCancelled
 }
+ 
+protocol AuthenticationManagerProtocol {
+    func getAuthenticatedUser() -> User?
+    func signUpUser(email: String, password: String) async -> Result<User, Error>
+    func signInWithGoogle(presenting viewController: UIViewController) async throws -> User
+    func signInWithFacebook(from viewController: UIViewController) async throws -> User
+    func signInUser(email: String, password: String) async throws
+    func resetPassword(with email: String) async throws
+    func deleteUser() async throws
+    func signOut() throws
+}
 
-final class AuthenticationManager {
-    
-    static let shared = AuthenticationManager()
-    
-    private init() {}
-    
+final class AuthenticationManager: AuthenticationManagerProtocol {
+
     public func getAuthenticatedUser() -> User? {
         Auth.auth().currentUser
     }
@@ -97,11 +104,8 @@ final class AuthenticationManager {
         }
     }
 
-    
-    @discardableResult
-    public func signInUser(email: String, password: String) async throws -> User {
-        let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
-        return authDataResult.user
+    public func signInUser(email: String, password: String) async throws {
+        let _ = try await Auth.auth().signIn(withEmail: email, password: password)
     }
     
     public func resetPassword(with email: String) async throws {

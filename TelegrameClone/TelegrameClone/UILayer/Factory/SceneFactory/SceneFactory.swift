@@ -49,21 +49,27 @@ class SceneFactory {
     }
     
     static func makeSettingsScene(coordinator: SettingsCoordinator) -> SettingsViewController {
-        let presenter = SettingsPresenter(coordinator: coordinator)
+        let presenter = SettingsPresenter(coordinator: coordinator, authenticationManager: AuthenticationManager())
         let controller = SettingsViewController(viewOutput: presenter)
         presenter.viewInput = controller
         return controller
     }
     
     static func makeSignInScene(coordinator: AuthenticationCoordinator) -> SignInViewController {
-        let presenter = SignInPresenter(coordinator: coordinator)
+        let presenter = SignInPresenter(coordinator: coordinator, authenticationManager: AuthenticationManager(), userManager: UserManager())
         let controller = SignInViewController(viewOutput: presenter)
         presenter.viewInput = controller
         return controller
     }
     
     static func makeSignUpScene(coordinator: AuthenticationCoordinator) -> SignUpViewController {
-        let presenter = SignUpPresenter(coordinator: coordinator)
+        let presenter = SignUpPresenter(
+            coordinator: coordinator,
+            authenticationManager: AuthenticationManager(),
+            userManager: UserManager(),
+            imageRenderer: ImageRenderer(),
+            storageManager: StorageManager()
+        )
         let controller = SignUpViewController(viewOutput: presenter)
         presenter.viewInput = controller
         return controller
@@ -77,14 +83,21 @@ class SceneFactory {
     }
     
     static func makeForgotPasswordScene(coordinator: AuthenticationCoordinator) -> ForgotPasswordViewController {
-        let presenter = ForgotPasswordPresenter(coordinator: coordinator)
+        let presenter = ForgotPasswordPresenter(coordinator: coordinator, authenticationManager: AuthenticationManager())
         let controller = ForgotPasswordViewController(viewOutput: presenter)
         presenter.viewInput = controller
         return controller
     }
     
     static func makeProfileSetupScene(coordinator: AuthenticationCoordinator, user: User) -> ProfileSetupViewController {
-        let presenter = ProfileSetupPresenter(coordinator: coordinator, user: user)
+        let presenter = ProfileSetupPresenter(
+            coordinator: coordinator,
+            authenticationManager: AuthenticationManager(),
+            userManager: UserManager(),
+            imageRenderer: ImageRenderer(),
+            storageManager: StorageManager(),
+            user: user
+        )
         let controller = ProfileSetupViewController(viewOutput: presenter)
         presenter.viewInput = controller
         return controller

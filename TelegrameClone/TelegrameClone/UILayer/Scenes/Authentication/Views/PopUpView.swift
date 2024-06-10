@@ -60,7 +60,7 @@ class PopUpView: UIView {
     }
     
     override func layoutSubviews() {
-        self.layer.cornerRadius = 25
+        self.layer.cornerRadius = 30
     }
     
     required init?(coder: NSCoder) {

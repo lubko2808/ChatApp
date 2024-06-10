@@ -20,7 +20,7 @@ final class AppCoordinator: Coordinator {
     }
     
     override func start() {
-        let authUser = AuthenticationManager.shared.getAuthenticatedUser()
+        let authUser = AuthenticationManager().getAuthenticatedUser()
         if authUser == nil {
             showRegisterFlow()
         } else {

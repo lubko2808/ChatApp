@@ -6,23 +6,25 @@
 //
 
 import UIKit
+import RxSwift
+import FirebaseStorage
+import SnapKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: AuthBaseViewController {
         
     // MARK: - Properties
     private let viewOutput: SignUpViewOutput
     var validationOptions: ValidationOptions = .noneValid
+    private let bag = DisposeBag()
+    private var displayNameInputTopConstraint: Constraint?
+    private var isKeyboardShown = false
+    
+    private enum UIConstants {
+        static let distanceFromDisplayNameInputToViewTop: CGFloat = 150
+    }
     
     // MARK: - Views
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.clipsToBounds = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        return scrollView
-    }()
-    
+
     private lazy var displayNameInput = TextFieldWithWint(type: .displayName, delegate: self, returnKeyType: .continue)
     private lazy var usernameInput = TextFieldWithWint(type: .username, delegate: self, returnKeyType: .continue)
     private lazy var emailInput = TextFieldWithWint(type: .email, delegate: self, returnKeyType: .continue)
@@ -30,21 +32,17 @@ class SignUpViewController: UIViewController {
 
     private let signUpButton = CustomButton(title: "Sign Up")
     
-    private let contentView: UIView = {
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        return contentView
-    }()
+    private let loginButtonsView = LoginButtonsView(title: "Or Register With")
     
-    private let loaderContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.isHidden = true
-        return view
+    private lazy var alreadyHaveAccountLabel: UILabel = {
+        let label = UILabel()
+        label.attributedText = NSMutableAttributedString.textWithHiglightes(text: "Already have an account? Login now", highlightedText: "Login now")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.addRangeGesture(stringRange: "Login now") { [weak self] in
+            self?.viewOutput.userDidTapLogin()
+        }        
+        return label
     }()
-    
-    private let loader = UIActivityIndicatorView(style: .large)
     
     // MARK: - Init
     init(viewOutput: SignUpViewOutput) {
@@ -62,24 +60,35 @@ class SignUpViewController: UIViewController {
         setupViews()
         setupNavigationBar()
         setupConstraints()
+        super.addLoader()
     }
     
     // MARK: - setup
     private func setupViews() {
         title = "Sign up"
-        view.backgroundColor = .white
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
-        view.addGestureRecognizer(tapGesture)
-
+        
         signUpButton.isActive = false
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         
-        view.addSubview(scrollView)
-        scrollView.addSubviews(views: contentView, displayNameInput, usernameInput, emailInput, passwordInput, signUpButton)
+        view.addSubviews(views: displayNameInput, usernameInput, emailInput, passwordInput, signUpButton, loginButtonsView, alreadyHaveAccountLabel)
+
+        loginButtonsView.appleButtonTapped
+            .subscribe { [weak self] sender in
+                self?.appleButtonTapped(sender)
+            }
+            .disposed(by: bag)
         
-        view.addSubview(loaderContainer)
-        loader.translatesAutoresizingMaskIntoConstraints = false
-        loaderContainer.addSubview(loader)
+        loginButtonsView.googleButtonTapped
+            .subscribe { [weak self] sender in
+                self?.googleButtonTapped(sender)
+            }
+            .disposed(by: bag)
+        
+        loginButtonsView.facebookButtonTapped
+            .subscribe { [weak self] sender in
+                self?.facebookButtonTapped(sender)
+            }
+            .disposed(by: bag)
         
         displayNameInput.textField.tag = 1
         usernameInput.textField.tag = 2
@@ -97,23 +106,10 @@ class SignUpViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        scrollView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.keyboardLayoutGuide.snp.top).offset(-20)
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.height.equalTo(scrollView.snp.height).priority(1)
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalTo(scrollView)
-            make.width.equalTo(scrollView.snp.width)
-        }
 
         displayNameInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(contentView.snp.top).offset(300)
+            displayNameInputTopConstraint = make.top.equalTo(view.safeAreaLayoutGuide).offset(UIConstants.distanceFromDisplayNameInputToViewTop).constraint
             make.width.equalToSuperview().inset(50)
         }
         
@@ -140,24 +136,21 @@ class SignUpViewController: UIViewController {
             make.top.equalTo(passwordInput.snp.bottom).offset(10)
             make.width.equalToSuperview().inset(50)
             make.height.equalTo(52)
-            make.bottom.equalToSuperview()
         }
         
-        loaderContainer.snp.makeConstraints { make in
-            make.top.bottom.trailing.leading.equalToSuperview()
+        loginButtonsView.snp.makeConstraints { make in
+            make.top.equalTo(signUpButton.snp.bottom).offset(35)
+            make.horizontalEdges.equalToSuperview().inset(22)
         }
         
-        loader.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
+        alreadyHaveAccountLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(5)
         }
         
     }
     
     // MARK: - Action handlers
-    @objc private func screenTapped() {
-        view.endEditing(true)
-    }
-    
     @objc private func signUpButtonTapped() {
     
         emailInput.textField.resignFirstResponder()
@@ -174,21 +167,56 @@ class SignUpViewController: UIViewController {
         
         viewOutput.userDidTapSignUpButton(displayName: displayName, username: username, email: email, password: password)
     }
+    
+    private func googleButtonTapped(_ sender: RegistrationButton?) {
+        sender?.showAnimation { [weak self] in
+            self?.viewOutput.userDidTapSignUpWithGoogle()
+        }
+    }
+    
+    private func appleButtonTapped(_ sender: RegistrationButton?) {
+        sender?.showAnimation { [weak self] in
+            self?.viewOutput.userDidTapSignUpWithApple()
+        }
+    }
+    
+    private func facebookButtonTapped(_ sender: RegistrationButton?) {
+        sender?.showAnimation { [weak self] in
+            self?.viewOutput.userDidTapSignUpWithFacebook()
+        }
+    }
+    
+    // MARK: - Keyboard
+    override func keyboardWillShow(_ notification: Notification) {
+        guard let screen = notification.object as? UIScreen, let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        print(keyboardFrame.height)
+        if !isKeyboardShown {
+            let fromCoordinateSpace = screen.coordinateSpace
+            let toCoordinateSpace: UICoordinateSpace = self.signUpButton.coordinateSpace
+            let convertedKeyboardFrame = fromCoordinateSpace.convert(keyboardFrame, to: toCoordinateSpace)
+            let viewIntersection = self.signUpButton.bounds.intersection(convertedKeyboardFrame)
+            if (viewIntersection.height == 0) { return }
+            UIView.animate(withDuration: 0.3) {
+                self.displayNameInputTopConstraint?.update(offset: 20)
+                self.view.layoutIfNeeded()
+                self.isKeyboardShown = true
+            }
+        }
+    }
+    
+    override func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.3) {
+            self.displayNameInputTopConstraint?.update(offset: UIConstants.distanceFromDisplayNameInputToViewTop)
+            self.isKeyboardShown = false
+            self.view.layoutIfNeeded()
+        }
+    }
 
 }
 
-extension SignUpViewController: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard let textField = textField as? CustomTextField else { return }
-        textField.isTextFieldActive = true
-    }
-        
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let textField = textField as? CustomTextField else { return }
-        textField.isTextFieldActive = false
-    }
-    
+// MARK: - UITextFieldDelegate
+extension SignUpViewController {
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let textField = textField as? CustomTextField else { return }
         guard let text = textField.text else { return }
@@ -218,20 +246,6 @@ extension SignUpViewController: UITextFieldDelegate {
 
 // MARK: - ViewInput
 extension SignUpViewController: SignUpViewInput {
-    
-    func startLoader() {
-        loaderContainer.isHidden = false
-        loader.startAnimating()
-    }
-    
-    func stopLoader() {
-        loaderContainer.isHidden = true
-        loader.stopAnimating()
-    }
-    
-    func displayError(with message: String) {
-        self.displayAlert(with: message)
-    }
     
     func displayDisplayNameHint(_ hint: String?) {
         displayHint(hint, on: displayNameInput.hintLabel, userInfoOption: .displayNameValid)

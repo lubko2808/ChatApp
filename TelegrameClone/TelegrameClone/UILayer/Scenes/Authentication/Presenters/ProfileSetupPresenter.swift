@@ -28,6 +28,10 @@ protocol ProfileSetupViewInput: AnyObject {
 class ProfileSetupPresenter {
     private var coordinator: AuthenticationCoordinator
     weak var viewInput: ProfileSetupViewInput?
+    private let authenticationManager: AuthenticationManagerProtocol
+    private let userManager: UserManagerProtocol
+    private let imageRenderer: ImageRendererProtocol
+    private let storageManager: StorageManagerProtocol
     private let user: User
     
     enum Constants {
@@ -36,9 +40,13 @@ class ProfileSetupPresenter {
         static let userNameMessage2 =  "Username can only contain a-z, 0-9 and underscores"
     }
     
-    init(coordinator: AuthenticationCoordinator, user: User, viewInput: ProfileSetupViewInput? = nil) {
+    init(coordinator: AuthenticationCoordinator, viewInput: ProfileSetupViewInput? = nil, authenticationManager: AuthenticationManagerProtocol, userManager: UserManagerProtocol, imageRenderer: ImageRendererProtocol, storageManager: StorageManagerProtocol, user: User) {
         self.coordinator = coordinator
         self.viewInput = viewInput
+        self.authenticationManager = authenticationManager
+        self.userManager = userManager
+        self.imageRenderer = imageRenderer
+        self.storageManager = storageManager
         self.user = user
     }
     
@@ -64,12 +72,12 @@ extension ProfileSetupPresenter: ProfileSetupViewOutput {
             return
         }
         
-        let regex = AppRegex.usernameRegex
         if username.count < 6 || username.count > 20 {
             viewInput?.displayUsernameHint(Constants.userNameMessage)
             return
         }
         
+        let regex = AppRegex.usernameRegex
         let match = try? regex.firstMatch(in: username)
         if match != nil {
             viewInput?.displayUsernameHint(Constants.userNameMessage2)
@@ -78,53 +86,48 @@ extension ProfileSetupPresenter: ProfileSetupViewOutput {
         }
     }
     
-    func userDidTapCancelButton() {
-        Task {
-            do {
-                try await AuthenticationManager.shared.deleteUser()
-                await MainActor.run {
-                    coordinator.goBack()
-                }
-            } catch {
-                await MainActor.run {
-                    viewInput?.displayError(with: error.localizedDescription)
-                }
-            }
-        }
-    }
     
-    func userDidTapContinueButton(displayName: String, username: String) {
-        viewInput?.startLoader()
-        Task {
+    func userDidTapCancelButton() {
+        Task { @MainActor in
             do {
-                let isUserExistes = try await UserManager.shared.isUserWithUsernameExistes(username)
-                if isUserExistes {
-                    await MainActor.run {
-                        viewInput?.stopLoader()
-                        viewInput?.displayError(with: "This username is already taken")
-                    }
-                    return
-                }
-                
-                try await MainActor.run {
-                    viewInput?.stopLoader()
-                    let dbUser = DBUser(
-                        userId: user.uid,
-                        photoUrl: nil,
-                        displayName: displayName,
-                        username: username,
-                        email: user.email ?? ""
-                    )
-                    
-                    try UserManager.shared.createNewUser(user: dbUser)
-                    coordinator.finish()
-                }
+                try await authenticationManager.deleteUser()
+                coordinator.goBack()
             } catch {
                 viewInput?.displayError(with: error.localizedDescription)
             }
         }
     }
     
+    func userDidTapContinueButton(displayName: String, username: String) {
+        Task { @MainActor in
+        viewInput?.startLoader()
+            do {
+                let isUserExistes = try await userManager.isUserWithUsernameExistes(username)
+                if isUserExistes {
+                    viewInput?.stopLoader()
+                    viewInput?.displayError(with: "This username is already taken")
+                    return
+                }
+                
+                let profileImage = imageRenderer.createDefaultProfilePicture(titleLetter: displayName.first ?? Character(""))
+                let profileImageUrl = try await storageManager.uploadProfileImage(profileImage, userId: user.uid)
+                
+                let dbUser = DBUser(
+                    userId: user.uid,
+                    photoUrl: profileImageUrl,
+                    displayName: displayName,
+                    username: username,
+                    email: user.email ?? ""
+                )
+                
+                try userManager.createNewUser(user: dbUser)
+                viewInput?.stopLoader()
+                coordinator.finish()
+                
+            } catch {
+                viewInput?.displayError(with: error.localizedDescription)
+            }
+        }
+    }
     
 }
-

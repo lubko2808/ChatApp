@@ -20,10 +20,12 @@ class SettingsPresenter  {
 
     private var coordinator: SettingsCoordinator
     weak var viewInput: SettingsViewInput?
+    private let authenticationManager: AuthenticationManagerProtocol
     
-    init(coordinator: SettingsCoordinator, viewInput: SettingsViewInput? = nil) {
+    init(coordinator: SettingsCoordinator, viewInput: SettingsViewInput? = nil, authenticationManager: AuthenticationManagerProtocol) {
         self.coordinator = coordinator
         self.viewInput = viewInput
+        self.authenticationManager = authenticationManager
     }
     
 }
@@ -33,7 +35,7 @@ extension SettingsPresenter: SettingsViewOutput {
     func userDidTapDeleteAccountButton() {
         Task {
             do {
-                try await AuthenticationManager.shared.deleteUser()
+                try await authenticationManager.deleteUser()
                 await MainActor.run {
                     coordinator.finish()
                 }
@@ -47,7 +49,7 @@ extension SettingsPresenter: SettingsViewOutput {
     
     func userDidTapLogOutButton() {
         do {
-            try AuthenticationManager.shared.signOut()
+            try authenticationManager.signOut()
             coordinator.finish()
         } catch {
             viewInput?.displayError(with: error.localizedDescription)

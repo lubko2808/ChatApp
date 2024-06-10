@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FirebaseAuth
+import GoogleSignIn
 
 protocol SignUpViewOutput: AnyObject {
     func userDidEnterDisplayName(_ displayName: String)
@@ -13,6 +15,10 @@ protocol SignUpViewOutput: AnyObject {
     func userDidEnterEmail(_ email: String)
     func userDidEnterPassword(_ password: String)
     func userDidTapSignUpButton(displayName: String, username: String, email: String, password: String)
+    func userDidTapSignUpWithApple()
+    func userDidTapSignUpWithGoogle()
+    func userDidTapSignUpWithFacebook()
+    func userDidTapLogin()
 }
 
 protocol SignUpViewInput: AnyObject {
@@ -41,10 +47,23 @@ class SignUpPresenter {
     
     private var coordinator: AuthenticationCoordinator
     weak var viewInput: SignUpViewInput?
+    private let authenticationManager: AuthenticationManagerProtocol
+    private let userManager: UserManagerProtocol
+    private let imageRenderer: ImageRendererProtocol
+    private let storageManager: StorageManagerProtocol
     
-    init(coordinator: AuthenticationCoordinator, viewInput: SignUpViewInput? = nil) {
+    init(coordinator: AuthenticationCoordinator, 
+         viewInput: SignUpViewInput? = nil,
+         authenticationManager: AuthenticationManagerProtocol,
+         userManager: UserManagerProtocol,
+         imageRenderer: ImageRendererProtocol,
+         storageManager: StorageManagerProtocol) {
         self.coordinator = coordinator
         self.viewInput = viewInput
+        self.authenticationManager = authenticationManager
+        self.userManager = userManager
+        self.imageRenderer = imageRenderer
+        self.storageManager = storageManager
     }
     
 }
@@ -113,45 +132,100 @@ extension SignUpPresenter: SignUpViewOutput {
     }
     
     func userDidTapSignUpButton(displayName: String, username: String, email: String, password: String) {
-        viewInput?.startLoader()
-        Task {
-            let isUserExistes = try await UserManager.shared.isUserWithUsernameExistes(username)
+        Task { @MainActor in
+            viewInput?.startLoader()
+            let isUserExistes = try await userManager.isUserWithUsernameExistes(username)
             if isUserExistes {
-                await MainActor.run {
-                    viewInput?.stopLoader()
-                    viewInput?.displayError(with: "This username is already taken")
-                }
+                await handleError("This username is already taken")
                 return
             }
      
-            let result = await AuthenticationManager.shared.signUpUser(email: email, password: password)
-            await MainActor.run {
-                viewInput?.stopLoader()
-                switch result {
-                case .success(let user):
-                    let user = DBUser(userId: user.uid, 
-                                      photoUrl: nil,
-                                      displayName: displayName,
-                                      username: username,
-                                      email: user.email ?? "")
-                    do {
-                        try UserManager.shared.createNewUser(user: user)
-                    } catch {
-                        print(#file, #function, error.localizedDescription)
-                    }
-                    coordinator.finish()
-                case .failure(let error):
-                    viewInput?.displayError(with: error.localizedDescription)
+            let result = await authenticationManager.signUpUser(email: email, password: password)
+            switch result {
+            case .success(let user):
+                let profileImage = imageRenderer.createDefaultProfilePicture(titleLetter: displayName.first ?? Character(""))
+                let profileImageUrl = try await storageManager.uploadProfileImage(profileImage, userId: user.uid)
+                let user = DBUser(userId: user.uid,
+                                  photoUrl: profileImageUrl,
+                                  displayName: displayName,
+                                  username: username,
+                                  email: user.email ?? "")
+                do {
+                    try userManager.createNewUser(user: user)
+                } catch {
+                    print(#file, #function, error.localizedDescription)
                 }
+                viewInput?.stopLoader()
+                coordinator.finish()
+            case .failure(let error):
+                viewInput?.displayError(with: error.localizedDescription)
             }
         }
     }
     
-    func signUp(with email: String, password: String) async throws {
-        
-//        let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
+    func userDidTapSignUpWithApple() {
         
     }
+    
+    func userDidTapSignUpWithGoogle() {
+        Task { @MainActor in
+            viewInput?.startLoader()
+            guard let presentingVC = viewInput as? SignUpViewController else { return }
+            do {
+                let user = try await authenticationManager.signInWithGoogle(presenting: presentingVC)
+                try await checkIfUserExists(user: user)
+            } catch AuthError.idTokenIsNil {
+                viewInput?.stopLoader()
+                print("error: idToken is nil")
+            } catch GIDSignInError.canceled {
+                viewInput?.stopLoader()
+            }
+            catch {
+                await handleError(error.localizedDescription)
+            }
+        }
+    }
+    
+    func userDidTapSignUpWithFacebook() {
+        Task { @MainActor in
+            viewInput?.startLoader()
+            guard let presentingVC = viewInput as? SignUpViewController else { return }
+            do {
+                let user = try await authenticationManager.signInWithFacebook(from: presentingVC)
+                try await checkIfUserExists(user: user)
+            } catch AuthError.FBLoginIsCancelled {
+                viewInput?.stopLoader()
+            } catch AuthError.FBLoginResultIsNil {
+                viewInput?.stopLoader()
+                print("AuthError.FBLoginResultIsNil")
+            } catch {
+                print(error.localizedDescription)
+                await handleError(error.localizedDescription)
+            }
+        }
+    }
+    
+    @MainActor
+    private func handleError(_ errorDescription: String) async {
+        viewInput?.stopLoader()
+        viewInput?.displayError(with: errorDescription)
+    }
+    
+    @MainActor
+    private func checkIfUserExists(user: User) async throws {
+        let isUserExists = try await userManager.isUserExists(userId: user.uid)
+        viewInput?.stopLoader()
+        if !isUserExists {
+            coordinator.showProfileSetupScene(user: user)
+        } else {
+            coordinator.finish()
+        }
+    }
+    
+    func userDidTapLogin() {
+        coordinator.showSignInScene()
+    }
+
     
 }
 

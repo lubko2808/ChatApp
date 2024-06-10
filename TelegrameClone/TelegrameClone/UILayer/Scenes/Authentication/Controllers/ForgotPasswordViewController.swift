@@ -14,7 +14,6 @@ class ForgotPasswordViewController: UIViewController {
     private var isEmailValid = false
     
     // MARK: - Views
-    
     private let popUpView = PopUpView(frame: .zero)
     
     private let forgotPasswordLabel: UILabel = {
@@ -25,16 +24,20 @@ class ForgotPasswordViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-    
-    private let emailTextField: CustomTextField = {
-        let field = CustomTextField(type: .email)
-        field.returnKeyType = .done
-        return field
-    }()
-    
-    private let emailHintLabel = UILabel.textFieldHintLabel()
+
+    private lazy var emailInput = TextFieldWithWint(type: .email, delegate: self, returnKeyType: .done)
     
     private let sendButton = CustomButton(title: "Send")
+    
+    private lazy var rememberPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.attributedText = NSMutableAttributedString.textWithHiglightes(text: "Remember Password? Login", highlightedText: "Login")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.addRangeGesture(stringRange: "Login") { [weak self] in
+            self?.viewOutput.userDidTapLogin()
+        }
+        return label
+    }()
     
     // MARK: - Init
     
@@ -59,13 +62,11 @@ class ForgotPasswordViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = .white
-        view.addSubviews(views: forgotPasswordLabel, emailTextField, emailHintLabel, sendButton)
+        view.addSubviews(views: forgotPasswordLabel, emailInput, sendButton, rememberPasswordLabel)
         
         sendButton.isActive = false
         sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
-        
-        emailTextField.delegate = self
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         view.addGestureRecognizer(tapGesture)
     }
@@ -75,25 +76,23 @@ class ForgotPasswordViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(65)
             make.centerX.equalToSuperview()
         }
-        
-        emailTextField.snp.makeConstraints { make in
+
+        emailInput.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(forgotPasswordLabel.snp.bottom).offset(50)
             make.width.equalToSuperview().inset(50)
-            make.height.equalTo(52)
-        }
-        
-        emailHintLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(5)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(emailTextField).inset(10)
         }
         
         sendButton.snp.makeConstraints { make in
-            make.top.equalTo(emailHintLabel.snp.bottom).offset(15)
+            make.top.equalTo(emailInput.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().inset(50)
             make.height.equalTo(52)
+        }
+        
+        rememberPasswordLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(5)
         }
         
     }
@@ -138,7 +137,7 @@ extension ForgotPasswordViewController: UITextFieldDelegate {
 extension ForgotPasswordViewController {
     
     @objc private func sendButtonTapped() {
-        guard let email = emailTextField.text else { return }
+        guard let email = emailInput.textField.text else { return }
         viewOutput.userDidTapSendButton(email: email)
     }
     
@@ -158,29 +157,20 @@ extension ForgotPasswordViewController: ForgotPasswordViewInput {
         }
 
         guard let hint else {
-            emailHintLabel.text = ""
+            emailInput.hintLabel.text = ""
             return
         }
-        emailHintLabel.text = hint
-        emailHintLabel.textColor = .red
+        emailInput.hintLabel.text = hint
+        emailInput.hintLabel.textColor = .red
     }
     
     func displayPopUp(with message: String) {
-        print("displayPopUp")
-//        self.displayError(with: message)
         popUpView.show(with: message, on: self.view)
     }
     
     func displayError(with message: String) {
-        print("displayError")
         self.displayAlert(with: message)
     }
     
     
-}
-
-
-#Preview {
-    
-    UINavigationController(rootViewController: ForgotPasswordViewController(viewOutput: ForgotPasswordPresenter(coordinator: AuthenticationCoordinator(type: .app, navigationController: UINavigationController()))))
 }

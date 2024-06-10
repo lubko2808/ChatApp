@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import GoogleSignIn
 
 protocol SignInViewOutput: AnyObject {
     func userDidEnterEmail(_ email: String)
@@ -29,7 +30,6 @@ protocol SignInViewInput: AnyObject {
     func stopLoader()
     
     func displayError(with message: String)
-
 }
 
 class SignInPresenter {
@@ -41,10 +41,17 @@ class SignInPresenter {
     
     private var coordinator: AuthenticationCoordinator
     weak var viewInput: SignInViewInput?
+    private let authenticationManager: AuthenticationManagerProtocol
+    private let userManager: UserManagerProtocol
     
-    init(coordinator: AuthenticationCoordinator, viewInput: SignInViewInput? = nil) {
+    init(coordinator: AuthenticationCoordinator,
+         viewInput: SignInViewInput? = nil,
+         authenticationManager: AuthenticationManagerProtocol,
+         userManager: UserManagerProtocol) {
         self.coordinator = coordinator
         self.viewInput = viewInput
+        self.authenticationManager = authenticationManager
+        self.userManager = userManager
     }
     
 }
@@ -84,14 +91,12 @@ extension SignInPresenter: SignInViewOutput {
     }
     
     func userDidTapSignInButton(email: String, password: String) {
+        Task { @MainActor in
         viewInput?.startLoader()
-        Task {
             do {
-                try await AuthenticationManager.shared.signInUser(email: email, password: password)
-                await MainActor.run {
-                    viewInput?.stopLoader()
-                    coordinator.finish()
-                }
+                try await authenticationManager.signInUser(email: email, password: password)
+                viewInput?.stopLoader()
+                coordinator.finish()
             } catch {
                 await handleError(error)
             }
@@ -103,40 +108,37 @@ extension SignInPresenter: SignInViewOutput {
     }
     
     func userDidTapSignInWithGoogle() {
-        viewInput?.startLoader()
-        Task {
+        Task { @MainActor in
+            viewInput?.startLoader()
             guard let presentingVC = viewInput as? SignInViewController else { return }
             do {
-                let user = try await AuthenticationManager.shared.signInWithGoogle(presenting: presentingVC)
+                let user = try await authenticationManager.signInWithGoogle(presenting: presentingVC)
                 try await checkIfUserExists(user: user)
             } catch AuthError.idTokenIsNil {
-                await MainActor.run {
-                    viewInput?.stopLoader()
-                    print("error: idToken is nil")
-                }
-            } catch {
+                viewInput?.stopLoader()
+                print("error: idToken is nil")
+                
+            } catch GIDSignInError.canceled {
+                viewInput?.stopLoader()
+            }
+            catch {
                 await handleError(error)
             }
         }
     }
-    
+
     func userDidTapSignInWithFacebook() {
-        viewInput?.startLoader()
-        Task {
+        Task { @MainActor in
+            viewInput?.startLoader()
             guard let presentingVC = viewInput as? SignInViewController else { return }
             do {
-                let user = try await AuthenticationManager.shared.signInWithFacebook(from: presentingVC)
+                let user = try await authenticationManager.signInWithFacebook(from: presentingVC)
                 try await checkIfUserExists(user: user)
             } catch AuthError.FBLoginIsCancelled {
-                await MainActor.run {
-                    viewInput?.stopLoader()
-                }
-            }
-            catch AuthError.FBLoginResultIsNil {
-                await MainActor.run {
-                    viewInput?.stopLoader()
-                    print("AuthError.FBLoginResultIsNil")
-                }
+                viewInput?.stopLoader()
+            } catch AuthError.FBLoginResultIsNil {
+                viewInput?.stopLoader()
+                print("AuthError.FBLoginResultIsNil")
             } catch {
                 print(error.localizedDescription)
                 await handleError(error)
@@ -144,22 +146,20 @@ extension SignInPresenter: SignInViewOutput {
         }
     }
     
+    @MainActor
     private func handleError(_ error: Error) async {
-        await MainActor.run {
-            viewInput?.stopLoader()
-            viewInput?.displayError(with: error.localizedDescription)
-        }
+        viewInput?.stopLoader()
+        viewInput?.displayError(with: error.localizedDescription)
     }
     
+    @MainActor
     private func checkIfUserExists(user: User) async throws {
-        let isUserExists = try await UserManager.shared.isUserExists(userId: user.uid)
-        await MainActor.run {
-            viewInput?.stopLoader()
-            if !isUserExists {
-                coordinator.showProfileSetupScene(user: user)
-            } else {
-                coordinator.finish()
-            }
+        let isUserExists = try await userManager.isUserExists(userId: user.uid)
+        viewInput?.stopLoader()
+        if !isUserExists {
+            coordinator.showProfileSetupScene(user: user)
+        } else {
+            coordinator.finish()
         }
     }
     

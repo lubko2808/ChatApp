@@ -8,18 +8,21 @@
 import UIKit
 import SnapKit
 import FacebookLogin
+import RxSwift
 
-class SignInViewController: UIViewController {
+final class SignInViewController: AuthBaseViewController {
         
     // MARK: - Properties
     private var isKeyboardShown = false
-    var imageViewTopConstraint: Constraint?
+    private var imageViewTopConstraint: Constraint?
     private let viewOutput: SignInViewOutput
     private var validationOptions: ValidationOptions = .noneValid
     
-    enum Constants {
+    private enum Constants {
         static let distanceFromImageViewToViewTop: CGFloat = 120
     }
+    
+    private let bag = DisposeBag()
     
     // MARK: - Views
     private let imageView: UIImageView = {
@@ -51,46 +54,17 @@ class SignInViewController: UIViewController {
         return button
     }()
     
-    private let dividerView = DividerView(title: "Or Login with")
-    
-    private let googleButton = RegistrationButton(type: .google)
-    private let appleButton = RegistrationButton(type: .apple)
-    private let facebookButton = RegistrationButton(type: .facebook)
-    
     private let loginButtonsView = LoginButtonsView(title: "Or Login with")
 
     private lazy var dontHaveAccountLabel: UILabel = {
         let label = UILabel()
-        let text = "Don't have an account? Register now"
-        let attributedString = NSMutableAttributedString(string: text)
-        let highlightedAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemMint]
-        if let range = text.range(of: "Register now") {
-             let nsRange = NSRange(range, in: text)
-             attributedString.addAttributes(highlightedAttributes, range: nsRange)
-         }
-        label.attributedText = attributedString
+        label.attributedText = NSMutableAttributedString.textWithHiglightes(text: "Don't have an account? Register now", highlightedText: "Register now")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.addRangeGesture(stringRange: "Register now") { [weak self] in
             self?.viewOutput.userDidTapRegister()
         }
         return label
     }()
-    
-    private let contentView: UIView = {
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        return contentView
-    }()
-    
-    private let loaderContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.isHidden = true
-        return view
-    }()
-    
-    private let loader = UIActivityIndicatorView(style: .large)
     
     // MARK: - Init
     init(viewOutput: SignInViewOutput) {
@@ -108,33 +82,34 @@ class SignInViewController: UIViewController {
         setupViews()
         setupNavigationBar()
         setupConstraints()
-        setupObservers()
-    }
-    
-    deinit {
-        stopKeyboardListener()
+        super.addLoader()
     }
     
     // MARK: - setup
     private func setupViews() {
         title = "Sign in"
-        view.backgroundColor = .white
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
-        view.addGestureRecognizer(tapGesture)
 
         view.addSubviews(views: imageView, emailInput,
                          passwordInput, forgotPasswordButton,
-                         signInButton, loginButtonsView, dontHaveAccountLabel, loaderContainer, loader)
+                         signInButton, loginButtonsView, dontHaveAccountLabel)
         
-        loginButtonsView.onAppleButtonTap = { [weak self] sender in
-            self?.appleButtonTapped(sender)
-        }
-        loginButtonsView.onGoogleButtonTap = { [weak self] sender in
-            self?.googleButtonTapped(sender)
-        }
-        loginButtonsView.onFacebookButtonTap = { [weak self] sender in
-            self?.facebookButtonTapped(sender)
-        }
+        loginButtonsView.appleButtonTapped
+            .subscribe { [weak self] sender in
+                self?.appleButtonTapped(sender)
+            }
+            .disposed(by: bag)
+        
+        loginButtonsView.googleButtonTapped
+            .subscribe { [weak self] sender in
+                self?.googleButtonTapped(sender)
+            }
+            .disposed(by: bag)
+        
+        loginButtonsView.facebookButtonTapped
+            .subscribe { [weak self] sender in
+                self?.facebookButtonTapped(sender)
+            }
+            .disposed(by: bag)
 
     }
     
@@ -188,20 +163,9 @@ class SignInViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(5)
         }
-        
-        loaderContainer.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        loader.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
     }
     
     // MARK: - Action handlers
-    @objc private func screenTapped() {
-        view.endEditing(true)
-    }
     
     @objc private func signInButtonTapped() {
 
@@ -226,8 +190,8 @@ class SignInViewController: UIViewController {
     }
     
     private func appleButtonTapped(_ sender: RegistrationButton?) {
-        sender?.showAnimation {
-            
+        sender?.showAnimation { [weak self] in
+            self?.viewOutput.userDidTapSignInWithApple()
         }
     }
     
@@ -236,26 +200,39 @@ class SignInViewController: UIViewController {
             self?.viewOutput.userDidTapSignInWithFacebook()
         }
     }
+    
+    // MARK: - Keyboard
+    override func keyboardWillShow(_ notification: Notification) {
+        guard let screen = notification.object as? UIScreen, let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        print(keyboardFrame.height)
+        if !isKeyboardShown {
+            let fromCoordinateSpace = screen.coordinateSpace
+            let toCoordinateSpace: UICoordinateSpace = self.signInButton.coordinateSpace
+            let convertedKeyboardFrame = fromCoordinateSpace.convert(keyboardFrame, to: toCoordinateSpace)
+            let viewIntersection = self.signInButton.bounds.intersection(convertedKeyboardFrame)
+            if (viewIntersection.height == 0) { return }
+            UIView.animate(withDuration: 0.3) {
+                self.imageViewTopConstraint?.update(offset: Constants.distanceFromImageViewToViewTop - Constants.distanceFromImageViewToViewTop / (1.5))
+                self.view.layoutIfNeeded()
+                self.isKeyboardShown = true
+            }
+        }
+    }
+    
+    override func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.3) {
+            self.imageViewTopConstraint?.update(offset: Constants.distanceFromImageViewToViewTop)
+            self.isKeyboardShown = false
+            self.view.layoutIfNeeded()
+        }
+    }
+
 
 }
 
 // MARK: - ViewInput
 extension SignInViewController: SignInViewInput {
-    
-    func startLoader() {
-        loaderContainer.isHidden = false
-        loader.startAnimating()
-    }
-    
-    func stopLoader() {
-        loaderContainer.isHidden = true
-        loader.stopAnimating()
-    }
-    
-    func displayError(with message: String) {
-        self.displayAlert(with: message)
-    }
-    
+
     func displayEmailHint(_ hint: String?) {
         displayHint(hint, on: emailInput.hintLabel, userInfoOption: .emailValid)
     }
@@ -285,22 +262,11 @@ extension SignInViewController: SignInViewInput {
         label.textColor = .red
     }
     
-    
 }
 
 // MARK: - UITextFieldDelegate
-extension SignInViewController: UITextFieldDelegate {
+extension SignInViewController {  
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard let textField = textField as? CustomTextField else { return }
-        textField.isTextFieldActive = true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let textField = textField as? CustomTextField else { return }
-        textField.isTextFieldActive = false
-    }
-    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let textField = textField as? CustomTextField else { return }
         guard let text = textField.text else { return }
@@ -325,46 +291,3 @@ extension SignInViewController: UITextFieldDelegate {
     
 }
 
-// MARK: - Keyboard Observers
-private extension SignInViewController {
-    func setupObservers() {
-        startKeyboardListener()
-    }
-    func startKeyboardListener() {
-        print("startKeyboardListener")
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func stopKeyboardListener() {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func keyboardWillShow(_ notification: Notification) {
-        guard let screen = notification.object as? UIScreen, let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        print(keyboardFrame.height)
-        if !isKeyboardShown {
-            
-            let fromCoordinateSpace = screen.coordinateSpace
-            let toCoordinateSpace: UICoordinateSpace = self.signInButton.coordinateSpace
-            let convertedKeyboardFrame = fromCoordinateSpace.convert(keyboardFrame, to: toCoordinateSpace)
-            let viewIntersection = self.signInButton.bounds.intersection(convertedKeyboardFrame)
-            print(viewIntersection.height)
-            UIView.animate(withDuration: 0.3) {
-                let padding: CGFloat = 10
-                self.imageViewTopConstraint?.update(offset: Constants.distanceFromImageViewToViewTop - viewIntersection.height - padding)
-                self.view.layoutIfNeeded()
-                self.isKeyboardShown = true
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(_ notification: Notification) {
-        UIView.animate(withDuration: 0.3) {
-            self.imageViewTopConstraint?.update(offset: Constants.distanceFromImageViewToViewTop)
-            self.isKeyboardShown = false
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-}

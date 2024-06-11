@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E03DAD42C18656D00A1078A /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD32C18656D00A1078A /* RxBlocking */; };
+		3E03DAD62C18656D00A1078A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD52C18656D00A1078A /* RxCocoa */; };
+		3E03DAD82C18656D00A1078A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD72C18656D00A1078A /* RxRelay */; };
+		3E03DADA2C18656D00A1078A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD92C18656D00A1078A /* RxSwift */; };
+		3E03DADD2C18657C00A1078A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DADC2C18657C00A1078A /* SnapKit */; };
 		3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */; };
 		3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */; };
-		3E31830B2C02024100B0DB59 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830A2C02024100B0DB59 /* SnapKit */; };
 		3E31830E2C02051500B0DB59 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830D2C02051500B0DB59 /* GoogleSignIn */; };
 		3E3183102C02051500B0DB59 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830F2C02051500B0DB59 /* GoogleSignInSwift */; };
 		3E3183122C02077E00B0DB59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E3183112C02077E00B0DB59 /* GoogleService-Info.plist */; };
@@ -97,9 +101,6 @@
 		3E8103962BE7F700004C97A3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103952BE7F700004C97A3 /* SignUpViewController.swift */; };
 		3E8FC1DE2BEE481C007BF309 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FC1DD2BEE481C007BF309 /* UIImage+Extension.swift */; };
 		3E94EA542BE96A9E00B4CCCD /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94EA532BE96A9E00B4CCCD /* AuthenticationManager.swift */; };
-		3EAE07D02C0F8CB500F4CA88 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3EAE07CF2C0F8CB500F4CA88 /* RxCocoa */; };
-		3EAE07D22C0F8CB500F4CA88 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3EAE07D12C0F8CB500F4CA88 /* RxRelay */; };
-		3EAE07D42C0F8CB500F4CA88 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3EAE07D32C0F8CB500F4CA88 /* RxSwift */; };
 		3ED6294F2C07A2F60085FDE7 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED6294E2C07A2F60085FDE7 /* FacebookBasics */; };
 		3ED629512C07A2F60085FDE7 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED629502C07A2F60085FDE7 /* FacebookCore */; };
 		3ED629532C07A2F60085FDE7 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED629522C07A2F60085FDE7 /* FacebookLogin */; };
@@ -184,13 +185,14 @@
 			files = (
 				3E707A052BE564C500E17DBC /* FirebaseStorageCombine-Community in Frameworks */,
 				3ED629512C07A2F60085FDE7 /* FacebookCore in Frameworks */,
-				3EAE07D22C0F8CB500F4CA88 /* RxRelay in Frameworks */,
+				3E03DAD82C18656D00A1078A /* RxRelay in Frameworks */,
 				3E7079F32BE564C500E17DBC /* FirebaseInAppMessaging-Beta in Frameworks */,
 				3E7079E72BE564C500E17DBC /* FirebaseDatabaseSwift in Frameworks */,
-				3E31830B2C02024100B0DB59 /* SnapKit in Frameworks */,
 				3E7079FD2BE564C500E17DBC /* FirebasePerformance in Frameworks */,
+				3E03DAD42C18656D00A1078A /* RxBlocking in Frameworks */,
 				3E7079F52BE564C500E17DBC /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				3E7079F92BE564C500E17DBC /* FirebaseMLModelDownloader in Frameworks */,
+				3E03DADD2C18657C00A1078A /* SnapKit in Frameworks */,
 				3E7079E52BE564C500E17DBC /* FirebaseDatabase in Frameworks */,
 				3E7079E92BE564C500E17DBC /* FirebaseDynamicLinks in Frameworks */,
 				3E7079DF2BE564C500E17DBC /* FirebaseAuth in Frameworks */,
@@ -201,8 +203,8 @@
 				3E7079FB2BE564C500E17DBC /* FirebaseMessaging in Frameworks */,
 				3E7079EB2BE564C500E17DBC /* FirebaseFirestore in Frameworks */,
 				3E7079F72BE564C500E17DBC /* FirebaseInstallations in Frameworks */,
-				3EAE07D42C0F8CB500F4CA88 /* RxSwift in Frameworks */,
-				3EAE07D02C0F8CB500F4CA88 /* RxCocoa in Frameworks */,
+				3E03DADA2C18656D00A1078A /* RxSwift in Frameworks */,
+				3E03DAD62C18656D00A1078A /* RxCocoa in Frameworks */,
 				3E7079E32BE564C500E17DBC /* FirebaseCrashlytics in Frameworks */,
 				3E7079EF2BE564C500E17DBC /* FirebaseFunctions in Frameworks */,
 				3ED629532C07A2F60085FDE7 /* FacebookLogin in Frameworks */,
@@ -561,15 +563,16 @@
 				3E707A002BE564C500E17DBC /* FirebaseRemoteConfigSwift */,
 				3E707A022BE564C500E17DBC /* FirebaseStorage */,
 				3E707A042BE564C500E17DBC /* FirebaseStorageCombine-Community */,
-				3E31830A2C02024100B0DB59 /* SnapKit */,
 				3E31830D2C02051500B0DB59 /* GoogleSignIn */,
 				3E31830F2C02051500B0DB59 /* GoogleSignInSwift */,
 				3ED6294E2C07A2F60085FDE7 /* FacebookBasics */,
 				3ED629502C07A2F60085FDE7 /* FacebookCore */,
 				3ED629522C07A2F60085FDE7 /* FacebookLogin */,
-				3EAE07CF2C0F8CB500F4CA88 /* RxCocoa */,
-				3EAE07D12C0F8CB500F4CA88 /* RxRelay */,
-				3EAE07D32C0F8CB500F4CA88 /* RxSwift */,
+				3E03DAD32C18656D00A1078A /* RxBlocking */,
+				3E03DAD52C18656D00A1078A /* RxCocoa */,
+				3E03DAD72C18656D00A1078A /* RxRelay */,
+				3E03DAD92C18656D00A1078A /* RxSwift */,
+				3E03DADC2C18657C00A1078A /* SnapKit */,
 			);
 			productName = TelegrameClone;
 			productReference = 3E7079A12BE55EB300E17DBC /* TelegrameClone.app */;
@@ -601,10 +604,10 @@
 			mainGroup = 3E7079982BE55EB300E17DBC;
 			packageReferences = (
 				3E7079DD2BE564C500E17DBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				3E3183092C02024100B0DB59 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
-				3EAE07CE2C0F8CB500F4CA88 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */,
+				3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 3E7079A22BE55EB300E17DBC /* Products */;
 			projectDirPath = "";
@@ -911,7 +914,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3E3183092C02024100B0DB59 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
+		3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -935,14 +946,6 @@
 				minimumVersion = 10.25.0;
 			};
 		};
-		3EAE07CE2C0F8CB500F4CA88 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.7.1;
-			};
-		};
 		3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
@@ -954,9 +957,29 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3E31830A2C02024100B0DB59 /* SnapKit */ = {
+		3E03DAD32C18656D00A1078A /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3E3183092C02024100B0DB59 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		3E03DAD52C18656D00A1078A /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		3E03DAD72C18656D00A1078A /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		3E03DAD92C18656D00A1078A /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		3E03DADC2C18657C00A1078A /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 		3E31830D2C02051500B0DB59 /* GoogleSignIn */ = {
@@ -1068,21 +1091,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E7079DD2BE564C500E17DBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
-		};
-		3EAE07CF2C0F8CB500F4CA88 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3EAE07CE2C0F8CB500F4CA88 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3EAE07D12C0F8CB500F4CA88 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3EAE07CE2C0F8CB500F4CA88 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		3EAE07D32C0F8CB500F4CA88 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3EAE07CE2C0F8CB500F4CA88 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 		3ED6294E2C07A2F60085FDE7 /* FacebookBasics */ = {
 			isa = XCSwiftPackageProductDependency;

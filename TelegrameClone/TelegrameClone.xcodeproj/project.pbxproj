@@ -12,6 +12,13 @@
 		3E03DAD82C18656D00A1078A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD72C18656D00A1078A /* RxRelay */; };
 		3E03DADA2C18656D00A1078A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD92C18656D00A1078A /* RxSwift */; };
 		3E03DADD2C18657C00A1078A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DADC2C18657C00A1078A /* SnapKit */; };
+		3E03DAE02C18DB3B00A1078A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DADF2C18DB3B00A1078A /* Lottie */; };
+		3E03DAE42C18DB6400A1078A /* PageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03DAE32C18DB6400A1078A /* PageCell.swift */; };
+		3E03DAEC2C18E19500A1078A /* lockAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E03DAE62C18E19500A1078A /* lockAnimation.json */; };
+		3E03DAED2C18E19500A1078A /* cloudAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E03DAE72C18E19500A1078A /* cloudAnimation.json */; };
+		3E03DAEF2C18E19500A1078A /* logoAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E03DAE92C18E19500A1078A /* logoAnimation.json */; };
+		3E03DAF02C18E19500A1078A /* infinityAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E03DAEA2C18E19500A1078A /* infinityAnimation.json */; };
+		3E03DAF32C18EB1100A1078A /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03DAF22C18EB1100A1078A /* UIWindow+Extension.swift */; };
 		3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */; };
 		3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */; };
 		3E31830E2C02051500B0DB59 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830D2C02051500B0DB59 /* GoogleSignIn */; };
@@ -33,6 +40,10 @@
 		3E5DD8382BE6B67800688F90 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8372BE6B67800688F90 /* ContactsViewController.swift */; };
 		3E5DD83A2BE6B6C700688F90 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD8392BE6B6C700688F90 /* SettingsViewController.swift */; };
 		3E5DD83C2BE6B6DB00688F90 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DD83B2BE6B6DB00688F90 /* ChatsViewController.swift */; };
+		3E6344352C19968F0090A371 /* rocketAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E6344342C19968F0090A371 /* rocketAnimation.json */; };
+		3E6344392C19996D0090A371 /* secureAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E6344382C19996D0090A371 /* secureAnimation.json */; };
+		3E6344432C199C770090A371 /* giftAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E6344422C199C770090A371 /* giftAnimation.json */; };
+		3E6344462C199CFD0090A371 /* PageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6344452C199CFD0090A371 /* PageItem.swift */; };
 		3E6776972C030EE600FFC985 /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6776962C030EE600FFC985 /* ProfileSetupViewController.swift */; };
 		3E6776992C030F3F00FFC985 /* ProfileSetupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6776982C030F3F00FFC985 /* ProfileSetupPresenter.swift */; };
 		3E67769B2C03159D00FFC985 /* TextFieldWithWint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67769A2C03159D00FFC985 /* TextFieldWithWint.swift */; };
@@ -101,12 +112,20 @@
 		3E8103962BE7F700004C97A3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8103952BE7F700004C97A3 /* SignUpViewController.swift */; };
 		3E8FC1DE2BEE481C007BF309 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FC1DD2BEE481C007BF309 /* UIImage+Extension.swift */; };
 		3E94EA542BE96A9E00B4CCCD /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94EA532BE96A9E00B4CCCD /* AuthenticationManager.swift */; };
+		3E995CC72C1CDA170089CF13 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E995CC62C1CDA170089CF13 /* PageControl.swift */; };
+		3E995CCA2C1CDE880089CF13 /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E995CC92C1CDE880089CF13 /* OnboardingPresenter.swift */; };
 		3ED6294F2C07A2F60085FDE7 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED6294E2C07A2F60085FDE7 /* FacebookBasics */; };
 		3ED629512C07A2F60085FDE7 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED629502C07A2F60085FDE7 /* FacebookCore */; };
 		3ED629532C07A2F60085FDE7 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 3ED629522C07A2F60085FDE7 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E03DAE32C18DB6400A1078A /* PageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCell.swift; sourceTree = "<group>"; };
+		3E03DAE62C18E19500A1078A /* lockAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lockAnimation.json; sourceTree = "<group>"; };
+		3E03DAE72C18E19500A1078A /* cloudAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloudAnimation.json; sourceTree = "<group>"; };
+		3E03DAE92C18E19500A1078A /* logoAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logoAnimation.json; sourceTree = "<group>"; };
+		3E03DAEA2C18E19500A1078A /* infinityAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = infinityAnimation.json; sourceTree = "<group>"; };
+		3E03DAF22C18EB1100A1078A /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		3E3183112C02077E00B0DB59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -126,6 +145,10 @@
 		3E5DD8372BE6B67800688F90 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		3E5DD8392BE6B6C700688F90 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3E5DD83B2BE6B6DB00688F90 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
+		3E6344342C19968F0090A371 /* rocketAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rocketAnimation.json; sourceTree = "<group>"; };
+		3E6344382C19996D0090A371 /* secureAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secureAnimation.json; sourceTree = "<group>"; };
+		3E6344422C199C770090A371 /* giftAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = giftAnimation.json; sourceTree = "<group>"; };
+		3E6344452C199CFD0090A371 /* PageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageItem.swift; sourceTree = "<group>"; };
 		3E6776962C030EE600FFC985 /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
 		3E6776982C030F3F00FFC985 /* ProfileSetupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupPresenter.swift; sourceTree = "<group>"; };
 		3E67769A2C03159D00FFC985 /* TextFieldWithWint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithWint.swift; sourceTree = "<group>"; };
@@ -176,6 +199,8 @@
 		3E8103952BE7F700004C97A3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3E8FC1DD2BEE481C007BF309 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		3E94EA532BE96A9E00B4CCCD /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		3E995CC62C1CDA170089CF13 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		3E995CC92C1CDE880089CF13 /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +219,7 @@
 				3E7079F92BE564C500E17DBC /* FirebaseMLModelDownloader in Frameworks */,
 				3E03DADD2C18657C00A1078A /* SnapKit in Frameworks */,
 				3E7079E52BE564C500E17DBC /* FirebaseDatabase in Frameworks */,
+				3E03DAE02C18DB3B00A1078A /* Lottie in Frameworks */,
 				3E7079E92BE564C500E17DBC /* FirebaseDynamicLinks in Frameworks */,
 				3E7079DF2BE564C500E17DBC /* FirebaseAuth in Frameworks */,
 				3E7079ED2BE564C500E17DBC /* FirebaseFirestoreSwift in Frameworks */,
@@ -219,6 +245,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E03DAE12C18DB4900A1078A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DD8292BE65E0E00688F90 /* OnboardingViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3E03DAE22C18DB4E00A1078A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E03DAE32C18DB6400A1078A /* PageCell.swift */,
+				3E995CC62C1CDA170089CF13 /* PageControl.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3E03DAE52C18E0BD00A1078A /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				3E03DAE72C18E19500A1078A /* cloudAnimation.json */,
+				3E6344422C199C770090A371 /* giftAnimation.json */,
+				3E03DAEA2C18E19500A1078A /* infinityAnimation.json */,
+				3E03DAE62C18E19500A1078A /* lockAnimation.json */,
+				3E03DAE92C18E19500A1078A /* logoAnimation.json */,
+				3E6344382C19996D0090A371 /* secureAnimation.json */,
+				3E6344342C19968F0090A371 /* rocketAnimation.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		3E2E31652BE56A5900D740F0 /* ServicesLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,7 +350,10 @@
 		3E5DD8282BE65DE900688F90 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				3E5DD8292BE65E0E00688F90 /* OnboardingViewController.swift */,
+				3E995CC82C1CDE7B0089CF13 /* Presenters */,
+				3E6344442C199CEE0090A371 /* Model */,
+				3E03DAE22C18DB4E00A1078A /* Views */,
+				3E03DAE12C18DB4900A1078A /* Controllers */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -377,6 +437,14 @@
 			path = Contacts;
 			sourceTree = "<group>";
 		};
+		3E6344442C199CEE0090A371 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E6344452C199CFD0090A371 /* PageItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3E6C32C52BF0CAF000DDC082 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,6 +514,7 @@
 		3E7079B82BE560BD00E17DBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E03DAE52C18E0BD00A1078A /* Animations */,
 				3E6C5B142BEF8319005B8561 /* Regex */,
 				3E8103922BE79CB2004C97A3 /* Colors */,
 				3E7079B92BE560C400E17DBC /* Extensions */,
@@ -464,6 +533,7 @@
 				3E6C5B192BEFDB41005B8561 /* UIViewController+Extension.swift */,
 				3E44F1402C14F30A00FD415D /* NSMutableAttributedString+Extension.swift */,
 				3E6B075E2C15EE5B0033C7D0 /* UIColor+Extension.swift */,
+				3E03DAF22C18EB1100A1078A /* UIWindow+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -526,6 +596,14 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		3E995CC82C1CDE7B0089CF13 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				3E995CC92C1CDE880089CF13 /* OnboardingPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -573,6 +651,7 @@
 				3E03DAD72C18656D00A1078A /* RxRelay */,
 				3E03DAD92C18656D00A1078A /* RxSwift */,
 				3E03DADC2C18657C00A1078A /* SnapKit */,
+				3E03DADF2C18DB3B00A1078A /* Lottie */,
 			);
 			productName = TelegrameClone;
 			productReference = 3E7079A12BE55EB300E17DBC /* TelegrameClone.app */;
@@ -608,6 +687,7 @@
 				3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */,
 				3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3E03DADE2C18DB3B00A1078A /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 3E7079A22BE55EB300E17DBC /* Products */;
 			projectDirPath = "";
@@ -625,19 +705,26 @@
 			files = (
 				3E7079D42BE5616100E17DBC /* Roboto-Thin.ttf in Resources */,
 				3E7079D12BE5616100E17DBC /* LICENSE.txt in Resources */,
+				3E03DAF02C18E19500A1078A /* infinityAnimation.json in Resources */,
 				3E7079D52BE5616100E17DBC /* Roboto-Black.ttf in Resources */,
 				3E7079D32BE5616100E17DBC /* Roboto-Bold.ttf in Resources */,
 				3E7079B12BE55EB400E17DBC /* LaunchScreen.storyboard in Resources */,
+				3E6344432C199C770090A371 /* giftAnimation.json in Resources */,
 				3E7079AE2BE55EB400E17DBC /* Assets.xcassets in Resources */,
 				3E7079CE2BE5616100E17DBC /* Roboto-BoldItalic.ttf in Resources */,
+				3E03DAEC2C18E19500A1078A /* lockAnimation.json in Resources */,
 				3E7079CB2BE5616100E17DBC /* Roboto-Regular.ttf in Resources */,
 				3E7079CD2BE5616100E17DBC /* Roboto-ThinItalic.ttf in Resources */,
 				3E3183122C02077E00B0DB59 /* GoogleService-Info.plist in Resources */,
+				3E03DAEF2C18E19500A1078A /* logoAnimation.json in Resources */,
 				3E7079CF2BE5616100E17DBC /* Roboto-LightItalic.ttf in Resources */,
 				3E7079D22BE5616100E17DBC /* Roboto-BlackItalic.ttf in Resources */,
 				3E7079CA2BE5616100E17DBC /* Roboto-Light.ttf in Resources */,
+				3E03DAED2C18E19500A1078A /* cloudAnimation.json in Resources */,
 				3E7079D02BE5616100E17DBC /* Roboto-Italic.ttf in Resources */,
+				3E6344392C19996D0090A371 /* secureAnimation.json in Resources */,
 				3E7079CC2BE5616100E17DBC /* Roboto-MediumItalic.ttf in Resources */,
+				3E6344352C19968F0090A371 /* rocketAnimation.json in Resources */,
 				3E7079C92BE5616100E17DBC /* Roboto-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,12 +740,14 @@
 				3E6F07032BED556F00F868F2 /* AuthenticationBeginningViewController.swift in Sources */,
 				3E5DD81E2BE65C2C00688F90 /* ChatsCoordinator.swift in Sources */,
 				3E5DD82D2BE6B50F00688F90 /* TabBarController.swift in Sources */,
+				3E03DAF32C18EB1100A1078A /* UIWindow+Extension.swift in Sources */,
 				3E6B07632C1641240033C7D0 /* ImageRenderer.swift in Sources */,
 				3E5DD8202BE65C4300688F90 /* SettingsCoordinator.swift in Sources */,
 				3E6776992C030F3F00FFC985 /* ProfileSetupPresenter.swift in Sources */,
 				3E6C5B1A2BEFDB41005B8561 /* UIViewController+Extension.swift in Sources */,
 				3E8FC1DE2BEE481C007BF309 /* UIImage+Extension.swift in Sources */,
 				3E6EB41E2C025BA000638A78 /* RegistrationButton.swift in Sources */,
+				3E6344462C199CFD0090A371 /* PageItem.swift in Sources */,
 				3E6C5B162BEF8323005B8561 /* AppRegex.swift in Sources */,
 				3E6B075F2C15EE5B0033C7D0 /* UIColor+Extension.swift in Sources */,
 				3E3E73012C0E2E9E001B658A /* LoginButtonsView.swift in Sources */,
@@ -677,13 +766,16 @@
 				3E6F07092BED5F4A00F868F2 /* SignInPresenter.swift in Sources */,
 				3E5DD8272BE65CC900688F90 /* UserStorage.swift in Sources */,
 				3E6C32C72BF0CAFE00DDC082 /* ValidationOptions.swift in Sources */,
+				3E995CC72C1CDA170089CF13 /* PageControl.swift in Sources */,
 				3E5DD81A2BE65C0E00688F90 /* AuthenticationCoordinator.swift in Sources */,
 				3E6C5B212BF011C3005B8561 /* UserManager.swift in Sources */,
 				3E6F07052BED566800F868F2 /* UIView+Extension.swift in Sources */,
 				3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */,
 				3E8103912BE77BFC004C97A3 /* SignInViewController.swift in Sources */,
 				3E94EA542BE96A9E00B4CCCD /* AuthenticationManager.swift in Sources */,
+				3E03DAE42C18DB6400A1078A /* PageCell.swift in Sources */,
 				3E6C32CD2BF1143400DDC082 /* PopUpView.swift in Sources */,
+				3E995CCA2C1CDE880089CF13 /* OnboardingPresenter.swift in Sources */,
 				3E6F070B2BED5F5300F868F2 /* SignUpPresenter.swift in Sources */,
 				3E44F13F2C14E32700FD415D /* AuthBaseViewController.swift in Sources */,
 				3E5DD82A2BE65E0E00688F90 /* OnboardingViewController.swift in Sources */,
@@ -850,6 +942,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -877,6 +970,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -930,6 +1024,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		3E03DADE2C18DB3B00A1078A /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 		3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
@@ -981,6 +1083,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		3E03DADF2C18DB3B00A1078A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E03DADE2C18DB3B00A1078A /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 		3E31830D2C02051500B0DB59 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

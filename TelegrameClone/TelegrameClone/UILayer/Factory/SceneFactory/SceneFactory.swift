@@ -11,8 +11,8 @@ import FirebaseAuth
 class SceneFactory {
     
     static func makeOnboardingScene(coordinator: OnboardingCoordinator) -> OnboardingViewController {
-        
-        return OnboardingViewController()
+        let presenter = OnboardingPresenter(coordinator: coordinator)
+        return OnboardingViewController(viewOutput: presenter)
     }
     
     static func makeMainScene(coordinator: AppCoordinator) -> TabBarController {

@@ -11,7 +11,6 @@
 		3E03DAD62C18656D00A1078A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD52C18656D00A1078A /* RxCocoa */; };
 		3E03DAD82C18656D00A1078A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD72C18656D00A1078A /* RxRelay */; };
 		3E03DADA2C18656D00A1078A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DAD92C18656D00A1078A /* RxSwift */; };
-		3E03DADD2C18657C00A1078A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DADC2C18657C00A1078A /* SnapKit */; };
 		3E03DAE02C18DB3B00A1078A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3E03DADF2C18DB3B00A1078A /* Lottie */; };
 		3E03DAE42C18DB6400A1078A /* PageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03DAE32C18DB6400A1078A /* PageCell.swift */; };
 		3E03DAEC2C18E19500A1078A /* lockAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E03DAE62C18E19500A1078A /* lockAnimation.json */; };
@@ -19,6 +18,7 @@
 		3E03DAEF2C18E19500A1078A /* logoAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E03DAE92C18E19500A1078A /* logoAnimation.json */; };
 		3E03DAF02C18E19500A1078A /* infinityAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E03DAEA2C18E19500A1078A /* infinityAnimation.json */; };
 		3E03DAF32C18EB1100A1078A /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03DAF22C18EB1100A1078A /* UIWindow+Extension.swift */; };
+		3E293F6B2C1E08BB00D572EC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3E293F6A2C1E08BB00D572EC /* SnapKit */; };
 		3E2E316A2BE56A8900D740F0 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E31692BE56A8900D740F0 /* CoordinatorProtocol.swift */; };
 		3E2E316C2BE56ADD00D740F0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E316B2BE56ADD00D740F0 /* Coordinator.swift */; };
 		3E31830E2C02051500B0DB59 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3E31830D2C02051500B0DB59 /* GoogleSignIn */; };
@@ -217,7 +217,6 @@
 				3E03DAD42C18656D00A1078A /* RxBlocking in Frameworks */,
 				3E7079F52BE564C500E17DBC /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				3E7079F92BE564C500E17DBC /* FirebaseMLModelDownloader in Frameworks */,
-				3E03DADD2C18657C00A1078A /* SnapKit in Frameworks */,
 				3E7079E52BE564C500E17DBC /* FirebaseDatabase in Frameworks */,
 				3E03DAE02C18DB3B00A1078A /* Lottie in Frameworks */,
 				3E7079E92BE564C500E17DBC /* FirebaseDynamicLinks in Frameworks */,
@@ -227,6 +226,7 @@
 				3E707A032BE564C500E17DBC /* FirebaseStorage in Frameworks */,
 				3E31830E2C02051500B0DB59 /* GoogleSignIn in Frameworks */,
 				3E7079FB2BE564C500E17DBC /* FirebaseMessaging in Frameworks */,
+				3E293F6B2C1E08BB00D572EC /* SnapKit in Frameworks */,
 				3E7079EB2BE564C500E17DBC /* FirebaseFirestore in Frameworks */,
 				3E7079F72BE564C500E17DBC /* FirebaseInstallations in Frameworks */,
 				3E03DADA2C18656D00A1078A /* RxSwift in Frameworks */,
@@ -650,8 +650,8 @@
 				3E03DAD52C18656D00A1078A /* RxCocoa */,
 				3E03DAD72C18656D00A1078A /* RxRelay */,
 				3E03DAD92C18656D00A1078A /* RxSwift */,
-				3E03DADC2C18657C00A1078A /* SnapKit */,
 				3E03DADF2C18DB3B00A1078A /* Lottie */,
+				3E293F6A2C1E08BB00D572EC /* SnapKit */,
 			);
 			productName = TelegrameClone;
 			productReference = 3E7079A12BE55EB300E17DBC /* TelegrameClone.app */;
@@ -686,8 +686,8 @@
 				3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				3ED6294D2C07A2F60085FDE7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */,
-				3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3E03DADE2C18DB3B00A1078A /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				3E293F692C1E08BB00D572EC /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 3E7079A22BE55EB300E17DBC /* Products */;
 			projectDirPath = "";
@@ -1016,20 +1016,20 @@
 				minimumVersion = 6.7.1;
 			};
 		};
-		3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
-			};
-		};
 		3E03DADE2C18DB3B00A1078A /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.4.3;
+			};
+		};
+		3E293F692C1E08BB00D572EC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
 			};
 		};
 		3E31830C2C02051500B0DB59 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
@@ -1079,15 +1079,15 @@
 			package = 3E03DAD22C18656C00A1078A /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
-		3E03DADC2C18657C00A1078A /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3E03DADB2C18657C00A1078A /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
 		3E03DADF2C18DB3B00A1078A /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3E03DADE2C18DB3B00A1078A /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		3E293F6A2C1E08BB00D572EC /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E293F692C1E08BB00D572EC /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 		3E31830D2C02051500B0DB59 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

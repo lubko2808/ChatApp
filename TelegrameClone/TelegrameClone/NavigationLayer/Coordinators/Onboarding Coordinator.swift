@@ -12,7 +12,7 @@ final class OnboardingCoordinator: Coordinator {
     private let factory = SceneFactory.self
     
     override func start() {
-        
+        showOnboarding()
     }
     
     override func finish() {

@@ -20,14 +20,17 @@ final class AppCoordinator: Coordinator {
     }
     
     override func start() {
-        let authUser = AuthenticationManager().getAuthenticatedUser()
-        if authUser == nil {
-            showRegisterFlow()
+        if UserStorage.shared.passedOnboarding {
+            let authUser = AuthenticationManager().getAuthenticatedUser()
+            if authUser == nil {
+                showRegisterFlow()
+            } else {
+                showMainFlow()
+            }
         } else {
-            showMainFlow()
+            showOnboardingFlow()
         }
-        
- 
+
     }
     
     override func finish() {
@@ -73,8 +76,12 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         case .settings:
             showRegisterFlow()
             navigationController?.viewControllers = [navigationController?.viewControllers.last ?? UIViewController()]
+        case .onboarding:
+            showRegisterFlow()
+            navigationController?.viewControllers = [navigationController?.viewControllers.last ?? UIViewController()]
         default:
-            navigationController?.popToRootViewController(animated: false)
+            break
+//            navigationController?.popToRootViewController(animated: false)
         }
     }
     

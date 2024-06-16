@@ -41,6 +41,7 @@ protocol UserManagerProtocol {
     func createNewUser(user: DBUser) throws
     func isUserWithUsernameExistes(_ username: String) async throws -> Bool
     func isUserExists(userId: String) async throws -> Bool 
+    func getUser(userId: String) async throws -> DBUser
 }
 
 final class UserManager: UserManagerProtocol {
@@ -49,6 +50,10 @@ final class UserManager: UserManagerProtocol {
 
     public func createNewUser(user: DBUser) throws {
         try userCollection.document(user.userId).setData(from: user, merge: false)
+    }
+    
+    public func getUser(userId: String) async throws -> DBUser {
+        try await userCollection.document(userId).getDocument(as: DBUser.self)
     }
     
     public func isUserWithUsernameExistes(_ username: String) async throws -> Bool {
@@ -62,5 +67,7 @@ final class UserManager: UserManagerProtocol {
         let documents = snapshot.documents
         return !documents.isEmpty
     }
+    
+    
     
 }

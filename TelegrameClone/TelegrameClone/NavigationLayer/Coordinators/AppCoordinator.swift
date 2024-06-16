@@ -50,6 +50,7 @@ private extension AppCoordinator {
     
     func showMainFlow() {
         guard let navigationController = navigationController else { return }
+        navigationController.navigationBar.isHidden = true
         let tabBarController = factory.makeMainScene(coordinator: self)
         navigationController.pushViewController(tabBarController, animated: true)
     }

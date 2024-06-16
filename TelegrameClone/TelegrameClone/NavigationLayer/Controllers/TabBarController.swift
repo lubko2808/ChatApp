@@ -24,8 +24,8 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBar.backgroundColor = .gray
-        tabBar.tintColor = .orange
+        tabBar.backgroundColor = .systemGray5
+        tabBar.tintColor = .systemBlue
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Roboto.regular.size(of: 12)], for: .normal)
         

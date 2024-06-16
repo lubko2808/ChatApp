@@ -40,6 +40,7 @@ class SettingsViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Settings"
         view.backgroundColor = .systemPink
         view.addSubview(logOutButton)
         view.addSubview(deleteAccountButton)

@@ -12,6 +12,8 @@ class ChatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
+        title = "Chats"
+        
     }
     
 }

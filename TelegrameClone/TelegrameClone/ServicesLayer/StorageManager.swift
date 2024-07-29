@@ -8,16 +8,37 @@
 import FirebaseStorage
 import UIKit
 
-protocol StorageManagerProtocol {
+protocol ProfileImageUploader {
     func uploadProfileImage(_ image: UIImage, userId: String) async throws -> URL
 }
 
-final class StorageManager: StorageManagerProtocol {
+protocol ProfileImageFetcher {
+    func getProfileImage(userId: String) async throws -> UIImage
+}
+
+final class StorageManager: ProfileImageUploader, ProfileImageFetcher {
     
-    enum StorageManagerError: Error {
+    private let cacheManager = CacheManager.shared
+    
+    enum StorageManagerError: LocalizedError {
         case couldNotCreateImage
+        case couldNotFetchImage
+        
+        var errorDescription: String? {
+            switch self {
+            case .couldNotFetchImage:
+                return "Could not fetch profile image"
+            case .couldNotCreateImage:
+                return "Could not create profile image"
+            }
+        }
+    }
+    
+    enum Constants {
+        static let tenMb: Int64 = 10 * 1024 * 1024
     }
 
+    private var task: StorageDownloadTask? = nil
     private let storage = Storage.storage()
     
     public func uploadProfileImage(_ image: UIImage, userId: String) async throws -> URL {
@@ -31,12 +52,17 @@ final class StorageManager: StorageManagerProtocol {
     }
     
     public func getProfileImage(userId: String) async throws -> UIImage {
-        let storageRef = storage.reference().child("profileImage/\(userId).jpg")
-        let imageData = try await storageRef.data(maxSize: 10 * 1024 * 1024)
+        let path = "profileImage/\(userId).jpg"
+        
+        if let cachedImage = cacheManager.get(key: path) {
+            return cachedImage
+        }
+        let storageRef = storage.reference().child(path)
+        let imageData = try await storageRef.getDataCancallable(maxSize: Constants.tenMb)
         guard let image = UIImage(data: imageData) else {
             throw StorageManagerError.couldNotCreateImage
         }
+        cacheManager.add(key: path, value: image)
         return image
     }
-    
 }

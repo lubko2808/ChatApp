@@ -10,7 +10,7 @@ import SnapKit
 import FacebookLogin
 import RxSwift
 
-final class SignInViewController: AuthBaseViewController {
+final class SignInViewController: BaseViewController {
         
     // MARK: - Properties
     private var isKeyboardShown = false
@@ -204,7 +204,6 @@ final class SignInViewController: AuthBaseViewController {
     // MARK: - Keyboard
     override func keyboardWillShow(_ notification: Notification) {
         guard let screen = notification.object as? UIScreen, let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        print(keyboardFrame.height)
         if !isKeyboardShown {
             let fromCoordinateSpace = screen.coordinateSpace
             let toCoordinateSpace: UICoordinateSpace = self.signInButton.coordinateSpace

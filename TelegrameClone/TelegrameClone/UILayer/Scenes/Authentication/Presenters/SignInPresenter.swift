@@ -39,7 +39,7 @@ class SignInPresenter {
         static let emailMessage = "This in not valid email"
     }
     
-    private var coordinator: AuthenticationCoordinator
+    private let coordinator: AuthenticationCoordinator
     weak var viewInput: SignInViewInput?
     private let authenticationManager: AuthenticationManagerProtocol
     private let userManager: UserManagerProtocol
@@ -138,7 +138,6 @@ extension SignInPresenter: SignInViewOutput {
                 viewInput?.stopLoader()
             } catch AuthError.FBLoginResultIsNil {
                 viewInput?.stopLoader()
-                print("AuthError.FBLoginResultIsNil")
             } catch {
                 print(error.localizedDescription)
                 await handleError(error)

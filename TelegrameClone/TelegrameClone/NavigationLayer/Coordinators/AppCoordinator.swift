@@ -22,6 +22,7 @@ final class AppCoordinator: Coordinator {
     override func start() {
         if UserStorage.shared.passedOnboarding {
             let authUser = AuthenticationManager().getAuthenticatedUser()
+            
             if authUser == nil {
                 showRegisterFlow()
             } else {

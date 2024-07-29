@@ -31,7 +31,7 @@ class ProfileSetupPresenter {
     private let authenticationManager: AuthenticationManagerProtocol
     private let userManager: UserManagerProtocol
     private let imageRenderer: ImageRendererProtocol
-    private let storageManager: StorageManagerProtocol
+    private let storageManager: ProfileImageUploader
     private let user: User
     
     enum Constants {
@@ -40,7 +40,7 @@ class ProfileSetupPresenter {
         static let userNameMessage2 =  "Username can only contain a-z, 0-9 and underscores"
     }
     
-    init(coordinator: AuthenticationCoordinator, viewInput: ProfileSetupViewInput? = nil, authenticationManager: AuthenticationManagerProtocol, userManager: UserManagerProtocol, imageRenderer: ImageRendererProtocol, storageManager: StorageManagerProtocol, user: User) {
+    init(coordinator: AuthenticationCoordinator, viewInput: ProfileSetupViewInput? = nil, authenticationManager: AuthenticationManagerProtocol, userManager: UserManagerProtocol, imageRenderer: ImageRendererProtocol, storageManager: ProfileImageUploader, user: User) {
         self.coordinator = coordinator
         self.viewInput = viewInput
         self.authenticationManager = authenticationManager

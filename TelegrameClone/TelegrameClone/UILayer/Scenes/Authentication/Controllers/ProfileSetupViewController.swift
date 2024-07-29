@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileSetupViewController: AuthBaseViewController {
+class ProfileSetupViewController: BaseViewController {
     // MARK: - Properties
     private let viewOutput: ProfileSetupViewOutput
     private var validationOptions: ValidationOptions = .noneValid
@@ -45,7 +45,7 @@ class ProfileSetupViewController: AuthBaseViewController {
     }
     
     private func setupNavigationBar() {
-        title = "Profile"
+        title = "Create Profile"
         let backButtonItem = UIBarButtonItem(image: UIImage.backButtonImage,
                                              style: .plain,
                                              target: navigationController,

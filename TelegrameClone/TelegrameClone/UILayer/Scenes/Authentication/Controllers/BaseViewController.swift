@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthBaseViewController: UIViewController {
+class BaseViewController: UIViewController {
     
     // MARK: - Views
     private let loaderContainer: UIView = {
@@ -82,11 +82,10 @@ class AuthBaseViewController: UIViewController {
         stopKeyboardListener()
     }
     
-    
 }
 
 // MARK: - UITextFieldDelegate
-extension AuthBaseViewController: UITextFieldDelegate {
+extension BaseViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard let textField = textField as? CustomTextField else { return }
         textField.isTextFieldActive = true

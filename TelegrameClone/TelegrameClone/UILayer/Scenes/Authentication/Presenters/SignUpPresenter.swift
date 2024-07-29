@@ -50,14 +50,14 @@ class SignUpPresenter {
     private let authenticationManager: AuthenticationManagerProtocol
     private let userManager: UserManagerProtocol
     private let imageRenderer: ImageRendererProtocol
-    private let storageManager: StorageManagerProtocol
+    private let storageManager: ProfileImageUploader
     
     init(coordinator: AuthenticationCoordinator, 
          viewInput: SignUpViewInput? = nil,
          authenticationManager: AuthenticationManagerProtocol,
          userManager: UserManagerProtocol,
          imageRenderer: ImageRendererProtocol,
-         storageManager: StorageManagerProtocol) {
+         storageManager: ProfileImageUploader) {
         self.coordinator = coordinator
         self.viewInput = viewInput
         self.authenticationManager = authenticationManager

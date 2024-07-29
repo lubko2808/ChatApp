@@ -35,7 +35,7 @@ class SceneFactory {
         coordinator.addChildCoordinator(chatsCoordinator)
         coordinator.addChildCoordinator(settingsCoordinator)
         
-        return TabBarController(tabBarControllers: [contactsNavVC, chatsNavVC, settingsNavVC])
+        return TabBarController(tabBarControllers: [chatsNavVC ,contactsNavVC, settingsNavVC])
     }
     
     static func makeContactsScene(coordinator: ContactsCoordinator) -> ContactsViewController {
@@ -44,7 +44,9 @@ class SceneFactory {
     }
     
     static func makeChatsScene(coordinator: ChatsCoordinator) -> ChatsViewController {
-        let controller = ChatsViewController()
+        let presenter = ChatsPresenter(coordinator: coordinator, userManager: UserManager())
+        let controller = ChatsViewController(viewOutput: presenter)
+        presenter.setViewInput(viewInput: controller)
         return controller
     }
     

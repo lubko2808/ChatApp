@@ -140,7 +140,7 @@ extension UserProfileViewController: UITableViewDelegate {
 extension UserProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userInfo.count
+        userInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -162,7 +162,6 @@ extension UserProfileViewController: UITableViewDataSource {
             cell.layer.cornerRadius = 10
             cell.clipsToBounds = true
             cell.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-            
         }
         return cell
     }

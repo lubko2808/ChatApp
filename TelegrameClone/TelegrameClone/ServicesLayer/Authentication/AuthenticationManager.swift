@@ -16,9 +16,12 @@ enum AuthError: Error {
     case FBLoginResultIsNil
     case FBLoginIsCancelled
 }
+
+protocol CurrentUserFetcher {
+    func getAuthenticatedUser() -> User?
+}
  
 protocol AuthenticationManagerProtocol {
-    func getAuthenticatedUser() -> User?
     func signUpUser(email: String, password: String) async -> Result<User, Error>
     func signInWithGoogle(presenting viewController: UIViewController) async throws -> User
     func signInWithFacebook(from viewController: UIViewController) async throws -> User
@@ -28,7 +31,7 @@ protocol AuthenticationManagerProtocol {
     func signOut() throws
 }
 
-final class AuthenticationManager: AuthenticationManagerProtocol {
+final class AuthenticationManager: AuthenticationManagerProtocol & CurrentUserFetcher {
 
     public func getAuthenticatedUser() -> User? {
         Auth.auth().currentUser
@@ -62,16 +65,12 @@ final class AuthenticationManager: AuthenticationManagerProtocol {
     public func signInWithFacebook(from viewController: UIViewController) async throws -> User {
         LoginManager().logOut();
         let result = try await logInWithFacebook(from: viewController)
-        print("here")
         if result.isCancelled {
             throw AuthError.FBLoginIsCancelled
         } else {
             try await startFBAuth()
-            print("here 2")
             let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current?.tokenString ?? "")
-            print("here 3")
             let result = try await Auth.auth().signIn(with: credential)
-            print("here 4")
             return result.user
         }
     }

@@ -10,7 +10,7 @@ import RxSwift
 import FirebaseStorage
 import SnapKit
 
-class SignUpViewController: AuthBaseViewController {
+class SignUpViewController: BaseViewController {
         
     // MARK: - Properties
     private let viewOutput: SignUpViewOutput
@@ -189,7 +189,6 @@ class SignUpViewController: AuthBaseViewController {
     // MARK: - Keyboard
     override func keyboardWillShow(_ notification: Notification) {
         guard let screen = notification.object as? UIScreen, let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        print(keyboardFrame.height)
         if !isKeyboardShown {
             let fromCoordinateSpace = screen.coordinateSpace
             let toCoordinateSpace: UICoordinateSpace = self.signUpButton.coordinateSpace

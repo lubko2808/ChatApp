@@ -14,7 +14,6 @@ protocol UserProfileViewOutput: AnyObject {
 
 protocol UserProfileViewInput: AnyObject {
     func displayData(profileImage: UIImage, displayName: String, userInfo: [(String, String)])
-    
     func displayError(with message: String)
 }
 
